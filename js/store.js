@@ -168,7 +168,7 @@ const DB = (() => {
 
     /* ---------- import / export ---------- */
     exportData: () => ({ app: 'BrainError', version: 2, exportedAt: new Date().toISOString(), quizzes: read(K.quizzes, []) }),
-    importData(obj, { replace = false } = {}) {
+    importData(obj, { replace = false, onlyNew = false } = {}) {
       const incoming = Array.isArray(obj) ? obj : obj && Array.isArray(obj.quizzes) ? obj.quizzes : null;
       if (!incoming) throw new Error('File is not a valid BrainError export.');
       const list = replace ? [] : read(K.quizzes, []);
@@ -176,26 +176,31 @@ const DB = (() => {
       incoming.forEach((q) => {
         if (!q || !q.title || !Array.isArray(q.sections)) return;
         const i = list.findIndex((x) => x.id === q.id);
-        if (i >= 0) list[i] = q; else list.push({ ...q, id: q.id || uid('quiz') });
+        if (i >= 0) {
+          if (onlyNew) return;
+          list[i] = q;
+        } else list.push({ ...q, id: q.id || uid('quiz') });
         n++;
       });
       write(K.quizzes, list);
       return n;
     },
 
-    async loadRepoData({ replace = false } = {}) {
+    async loadRepoData({ replace = false, onlyNew = false } = {}) {
       const res = await fetch('data/quizzes.json', { cache: 'no-store' });
       if (!res.ok) throw new Error('data/quizzes.json not found.');
-      return api.importData(await res.json(), { replace });
+      return api.importData(await res.json(), { replace, onlyNew });
     },
 
     async init() {
       ensureUsers();
-      if (read(K.seeded, false)) return;
+      const seeded = read(K.seeded, false);
       let loaded = 0;
-      try { loaded = await api.loadRepoData(); } catch { /* offline or file:// */ }
-      if (!loaded) write(K.quizzes, [sampleQuiz()]);
-      write(K.seeded, true);
+      try { loaded = await api.loadRepoData({ onlyNew: true }); } catch { /* offline or file:// */ }
+      if (!seeded) {
+        if (!loaded && !read(K.quizzes, []).length) write(K.quizzes, [sampleQuiz()]);
+        write(K.seeded, true);
+      }
     },
   };
   return api;

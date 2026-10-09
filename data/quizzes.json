@@ -695,11 +695,11 @@
             { "id": "q_ca6", "type": "code", "mode": "arrange", "language": "cpp", "title": "LCD I2C setup and print", "prompt": "Put the lines in the correct order to initialize and print to an LCD I2C.", "code": "#include <Wire.h>\n#include <LiquidCrystal_I2C.h>\n\nLiquidCrystal_I2C lcd(0x27, 16, 2);\n\nvoid setup() {\n  lcd.init();\n  lcd.backlight();\n  lcd.setCursor(0, 0);\n  lcd.print(\"Hello, ESP32\");\n}\n\nvoid loop() {\n}", "bugLine": null, "fix": "", "explain": "Initialize, turn on backlight, move cursor, then print." },
             { "id": "q_ca7", "type": "code", "mode": "arrange", "language": "cpp", "title": "LDR automatic light", "prompt": "Put the lines in the correct order for an LDR-based automatic light.", "code": "void setup() {\n  pinMode(LED_PIN, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int light = analogRead(LDR_PIN);\n  if (light < 500) {\n    digitalWrite(LED_PIN, HIGH);\n  } else {\n    digitalWrite(LED_PIN, LOW);\n  }\n  delay(100);\n}", "bugLine": null, "fix": "", "explain": "Read analog value, then turn LED on if it's dark." },
             { "id": "q_ca8", "type": "code", "mode": "arrange", "language": "cpp", "title": "7-segment show '1' on Common Cathode", "prompt": "Put the lines in the correct order to display the digit '1' on a Common Cathode 7-segment display.", "code": "void setup() {\n  pinMode(SEG_A, OUTPUT);\n  pinMode(SEG_B, OUTPUT);\n  pinMode(SEG_C, OUTPUT);\n  pinMode(SEG_D, OUTPUT);\n  pinMode(SEG_E, OUTPUT);\n  pinMode(SEG_F, OUTPUT);\n  pinMode(SEG_G, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(SEG_A, LOW);\n  digitalWrite(SEG_B, HIGH);\n  digitalWrite(SEG_C, HIGH);\n  digitalWrite(SEG_D, LOW);\n  digitalWrite(SEG_E, LOW);\n  digitalWrite(SEG_F, LOW);\n  digitalWrite(SEG_G, LOW);\n  delay(1000);\n}", "bugLine": null, "fix": "", "explain": "Set all segments as OUTPUT in setup, then turn on only b and c for '1'." }
-          ]
+         ]
         }
       ]
-    }, 
-        {
+    },
+    {
       "id": "quiz_core_activities",
       "title": "Core Activities — Hands-On Code Review",
       "subject": "Programming",
