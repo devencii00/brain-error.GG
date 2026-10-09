@@ -6,12 +6,22 @@
 const Sound = (() => {
   let ctx = null;
   let masterGain = null;
-  let enabled = true;
+  let lastVolume = 0.15;   // remembers last non-zero volume (for unmute)
+  let volume = 0.15;       // current volume 0.0–1.0
+  let muted = false;       // user has explicitly muted
 
-  // Load preference from localStorage
+  // Load preferences from localStorage
   try {
-    const saved = localStorage.getItem('be_sound');
-    if (saved !== null) enabled = saved === 'true';
+    const savedVol = localStorage.getItem('be_volume');
+    if (savedVol !== null) {
+      const v = parseFloat(savedVol);
+      if (!isNaN(v) && v >= 0 && v <= 1) {
+        volume = v;
+        if (v > 0) lastVolume = v;
+      }
+    }
+    const savedMuted = localStorage.getItem('be_muted');
+    if (savedMuted !== null) muted = savedMuted === 'true';
   } catch {}
 
   function initCtx() {
@@ -19,7 +29,7 @@ const Sound = (() => {
     try {
       ctx = new (window.AudioContext || window.webkitAudioContext)();
       masterGain = ctx.createGain();
-      masterGain.gain.value = 0.15; // overall volume (0.0–1.0) — keeps it soft
+      masterGain.gain.value = muted ? 0 : volume;
       masterGain.connect(ctx.destination);
     } catch (e) {
       console.warn('Web Audio not supported:', e);
@@ -27,13 +37,12 @@ const Sound = (() => {
   }
 
   // Some browsers block AudioContext until a user gesture.
-  // This is called on the first click so audio starts working.
   function unlock() {
     initCtx();
     if (ctx && ctx.state === 'suspended') ctx.resume();
   }
 
-  function tone(freq, start, duration, type = 'sine', volume = 1) {
+  function tone(freq, start, duration, type = 'sine', vol = 1) {
     if (!ctx || !masterGain) return;
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
@@ -41,7 +50,7 @@ const Sound = (() => {
     osc.frequency.setValueAtTime(freq, ctx.currentTime + start);
     // ADSR-ish envelope: quick attack, smooth decay
     gain.gain.setValueAtTime(0, ctx.currentTime + start);
-    gain.gain.linearRampToValueAtTime(0.4 * volume, ctx.currentTime + start + 0.008);
+    gain.gain.linearRampToValueAtTime(0.4 * vol, ctx.currentTime + start + 0.008);
     gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + start + duration);
     osc.connect(gain);
     gain.connect(masterGain);
@@ -50,12 +59,11 @@ const Sound = (() => {
   }
 
   function play(kind) {
-    if (!enabled) return;
+    if (muted || volume <= 0) return;
     unlock();
     if (!ctx) return;
     switch (kind) {
       case 'click':
-        // soft high blip
         tone(880, 0, 0.06, 'triangle', 0.5);
         break;
 
@@ -80,7 +88,6 @@ const Sound = (() => {
         break;
 
       case 'tick':
-        // high soft tick for timer warnings
         tone(1200, 0, 0.04, 'square', 0.25);
         break;
 
@@ -102,19 +109,74 @@ const Sound = (() => {
     }
   }
 
+  function applyVolume() {
+    if (masterGain) masterGain.gain.value = muted ? 0 : volume;
+  }
+
   return {
     play,
     unlock,
-    isEnabled: () => enabled,
+
+    /** Is sound effectively producing output right now? */
+    isEnabled: () => !muted && volume > 0,
+
+    /** Is the user explicitly muted? (used by UI) */
+    isMuted: () => muted,
+
+    /** Set muted state directly. Unmuting restores lastVolume. */
     setEnabled(v) {
-      enabled = !!v;
-      try { localStorage.setItem('be_sound', String(enabled)); } catch {}
+      const on = !!v;
+      if (on) {
+        muted = false;
+        if (volume <= 0) volume = lastVolume > 0 ? lastVolume : 0.15;
+      } else {
+        muted = true;
+      }
+      try {
+        localStorage.setItem('be_muted', String(muted));
+        localStorage.setItem('be_volume', String(volume));
+      } catch {}
+      applyVolume();
     },
+
+    /** Toggle mute on/off. Returns the new enabled state. */
     toggle() {
-      enabled = !enabled;
-      try { localStorage.setItem('be_sound', String(enabled)); } catch {}
-      if (enabled) play('click'); // small confirmation when turning on
-      return enabled;
+      if (muted || volume <= 0) {
+        // currently muted → unmute
+        muted = false;
+        if (volume <= 0) volume = lastVolume > 0 ? lastVolume : 0.15;
+      } else {
+        // currently on → mute
+        muted = true;
+      }
+      try {
+        localStorage.setItem('be_muted', String(muted));
+        localStorage.setItem('be_volume', String(volume));
+      } catch {}
+      applyVolume();
+      if (!muted) play('click');
+      return !muted;
+    },
+
+    /** Current displayed volume (0..1). Returns 0 if muted. */
+    getVolume: () => (muted ? 0 : volume),
+
+    /** Set volume. 0 mutes; >0 unmutes. */
+    setVolume(v) {
+      const newVol = Math.max(0, Math.min(1, Number(v) || 0));
+      if (newVol > 0) {
+        volume = newVol;
+        lastVolume = newVol;
+        muted = false;
+      } else {
+        // slider at 0 → mute (keep lastVolume for restore)
+        muted = true;
+      }
+      try {
+        localStorage.setItem('be_volume', String(volume));
+        localStorage.setItem('be_muted', String(muted));
+      } catch {}
+      applyVolume();
     },
   };
 })();

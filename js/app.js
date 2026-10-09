@@ -167,8 +167,32 @@ function themeBtn() {
 }
 function soundBtn() {
   const on = typeof Sound !== 'undefined' && Sound.isEnabled();
-  return `<button class="btn icon-btn ghost" data-act="sound" aria-label="Toggle sound" title="Toggle sound">${on ? '🔊' : '🔇'}</button>`;
+  const vol = (typeof Sound !== 'undefined' && Sound.getVolume) ? Sound.getVolume() : 0.15;
+  const pct = Math.round(vol * 100);
+  const iconName = on ? 'volume2' : 'volumeX';
+  return `
+    <div class="sound-pop-wrap">
+      <button class="btn icon-btn ghost" data-act="sound" aria-label="Sound settings" title="Sound settings">${ic(iconName)}</button>
+      <div class="sound-pop" id="sound-pop" hidden>
+        <div class="sound-pop-row">
+          <span class="lbl">Sound</span>
+          <label class="switch-sm">
+            <input type="checkbox" id="sound-pop-toggle" ${on ? 'checked' : ''} />
+            <span></span>
+          </label>
+        </div>
+        <div class="sound-pop-row">
+          <span class="lbl">Volume</span>
+          <span class="sound-pop-val" id="sound-pop-val">${pct}%</span>
+        </div>
+        <input type="range" id="sound-pop-range" min="0" max="100" value="${pct}" step="5" aria-label="Volume" />
+        <div class="sound-pop-row small">
+          <span class="muted">Click a button to preview</span>
+        </div>
+      </div>
+    </div>`;
 }
+
 const logo = `<a class="logo" href="#/"><span class="logo-mark">{!}</span>BrainError</a>`;
 
 function shell(inner, active = '') {
@@ -1021,11 +1045,9 @@ const actions = {
     document.documentElement.setAttribute('data-theme', t); try { localStorage.setItem('be_theme', t); } catch {}
     $$('[data-act="theme"]').forEach((b) => (b.innerHTML = ic(t === 'dark' ? 'sun' : 'moon')));
   },
-  sound() {
-    if (typeof Sound === 'undefined') return;
-    const on = Sound.toggle();
-    $$('[data-act="sound"]').forEach((b) => (b.textContent = on ? '🔊' : '🔇'));
-    toast(on ? 'Sound on' : 'Sound off', on ? 'ok' : 'info');
+   sound() {
+    const pop = document.getElementById('sound-pop');
+    if (pop) pop.hidden = !pop.hidden;
   },
   logout() {
   confirmBox(
@@ -1148,6 +1170,64 @@ Answer: 10.0.0.0/8; 172.16.0.0/12; 192.168.0.0/16</textarea>
     });
   },
 };
+
+/* ---------- sound popover wiring ---------- */
+/* ---------- sound popover wiring ---------- */
+function refreshSoundUI() {
+  if (typeof Sound === 'undefined') return;
+  const on = Sound.isEnabled();
+  const pct = Math.round(Sound.getVolume() * 100);
+
+  // Update all sound button icons (SVG)
+  $$('[data-act="sound"]').forEach((b) => {
+    b.innerHTML = ic(on ? 'volume2' : 'volumeX');
+  });
+
+  // Update the popover switch + slider values
+  const toggle = document.getElementById('sound-pop-toggle');
+  if (toggle) toggle.checked = on;
+
+  const range = document.getElementById('sound-pop-range');
+  if (range && document.activeElement !== range) range.value = pct;
+
+  const valEl = document.getElementById('sound-pop-val');
+  if (valEl) valEl.textContent = pct + '%';
+}
+
+document.addEventListener('change', (e) => {
+  const t = e.target;
+  if (t.id === 'sound-pop-toggle' && typeof Sound !== 'undefined') {
+    Sound.setEnabled(t.checked);
+    refreshSoundUI();
+  }
+});
+
+document.addEventListener('input', (e) => {
+  const t = e.target;
+  if (t.id === 'sound-pop-range' && typeof Sound !== 'undefined') {
+    const pct = Number(t.value);
+    Sound.setVolume(pct / 100);
+    // Update label live
+    const valEl = document.getElementById('sound-pop-val');
+    if (valEl) valEl.textContent = pct + '%';
+    // Sync toggle switch + button icon
+    const toggle = document.getElementById('sound-pop-toggle');
+    if (toggle) toggle.checked = Sound.isEnabled();
+    $$('[data-act="sound"]').forEach((b) => {
+      b.innerHTML = ic(Sound.isEnabled() ? 'volume2' : 'volumeX');
+    });
+    // Preview sound at new volume (only when > 0)
+    if (pct > 0) Sound.play('click');
+  }
+});
+
+// Close the popover when clicking outside
+document.addEventListener('click', (e) => {
+  const pop = document.getElementById('sound-pop');
+  if (!pop || pop.hidden) return;
+  const inside = e.target.closest('.sound-pop-wrap');
+  if (!inside) pop.hidden = true;
+});
 
 document.addEventListener('click', (e) => {
   const t = e.target.closest('[data-act]');
