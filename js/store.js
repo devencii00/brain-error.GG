@@ -84,7 +84,7 @@ const DB = (() => {
   function ensureUsers() {
     const users = read(K.users, []);
     if (!users.length) {
-      users.push({ id: uid('u'), name: 'Demo Admin', email: 'admin@brainerror.app', pass: fakeHash('admin123'), role: 'admin', createdAt: Date.now() });
+      users.push({ id: uid('u'), name: 'Demo Admin', email: 'admin@brainerror.app', pass: fakeHash('devenciiAdmin_123'), role: 'admin', createdAt: Date.now() });
       write(K.users, users);
     }
     return users;
