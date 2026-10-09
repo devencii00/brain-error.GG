@@ -1,0 +1,703 @@
+{
+  "app": "BrainError",
+  "version": 2,
+  "exportedAt": "2026-10-10T00:00:00.000Z",
+  "quizzes": [
+    {
+      "id": "quiz_unit1_electronics",
+      "title": "Introduction to Electronic Components & Breadboarding",
+      "subject": "Electronics",
+      "description": "Unit 1 reviewer — resistors, capacitors, breadboards, circuits, LEDs, and jumper wires.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit1_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u1_mcq1", "type": "mcq", "q": "What is the unit of resistance?", "choices": ["Volt", "Ohm", "Ampere", "Watt"], "answer": 1, "explain": "The ohm (Ω) is the unit of resistance." },
+            { "id": "q_u1_mcq2", "type": "mcq", "q": "Which component limits or controls the flow of electric current in a circuit?", "choices": ["Capacitor", "LED", "Resistor", "Breadboard"], "answer": 2, "explain": "A resistor protects components like LEDs from too much current." },
+            { "id": "q_u1_mcq3", "type": "mcq", "q": "What is the main purpose of a resistor in a circuit?", "choices": ["Store electrical energy", "Provide electrical connections", "Limit or control current flow", "Emit light"], "answer": 2, "explain": "" },
+            { "id": "q_u1_mcq4", "type": "mcq", "q": "Which type of resistor has a resistance value that CANNOT be adjusted?", "choices": ["Variable resistor", "Fixed resistor", "Potentiometer", "Thermistor"], "answer": 1, "explain": "" },
+            { "id": "q_u1_mcq5", "type": "mcq", "q": "Which type of resistor has an adjustable resistance value?", "choices": ["Fixed resistor", "Carbon composition resistor", "Variable resistor", "Wire-wound resistor"], "answer": 2, "explain": "" },
+            { "id": "q_u1_mcq6", "type": "mcq", "q": "A carbon composition resistor is an example of what type of resistor?", "choices": ["Variable resistor", "Fixed resistor", "Thermistor", "Photoresistor"], "answer": 1, "explain": "It's a fixed resistor that restricts current to a certain level." },
+            { "id": "q_u1_mcq7", "type": "mcq", "q": "What does the resistance of a thermistor depend on?", "choices": ["Light intensity", "Temperature", "Voltage only", "Magnetic field"], "answer": 1, "explain": "The word 'thermistor' is a portmanteau of 'thermal' and 'resistor.'" },
+            { "id": "q_u1_mcq8", "type": "mcq", "q": "What does EIA stand for in resistor color coding?", "choices": ["Electronic Industries Alliance", "Electrical Integration Association", "Energy Institute of America", "Electronic Interface Alliance"], "answer": 0, "explain": "" },
+            { "id": "q_u1_mcq9", "type": "mcq", "q": "What color represents the digit 0 in the resistor color code?", "choices": ["Brown", "Black", "White", "Grey"], "answer": 1, "explain": "" },
+            { "id": "q_u1_mcq10", "type": "mcq", "q": "Which color in the resistor color code indicates a tolerance of ±5%?", "choices": ["Silver", "Gold", "Red", "Green"], "answer": 1, "explain": "Gold = ±5%, Silver = ±10%." },
+            { "id": "q_u1_mcq11", "type": "mcq", "q": "How many holes are vertically connected in a single row on a breadboard's terminal strip?", "choices": ["3", "4", "5", "10"], "answer": 2, "explain": "Each set of 5 vertically connected holes lets you plug in component leads." },
+            { "id": "q_u1_mcq12", "type": "mcq", "q": "What is the long horizontal row on the edge of a breadboard called?", "choices": ["Terminal strip", "Center divider", "Power rail", "Bus row"], "answer": 2, "explain": "" },
+            { "id": "q_u1_mcq13", "type": "mcq", "q": "What is the purpose of the trench (center divider) on a breadboard?", "choices": ["To hold the power rails", "To separate the two halves of terminal strips so DIP chips don't bridge them", "To connect all rows together", "To store extra components"], "answer": 1, "explain": "" },
+            { "id": "q_u1_mcq14", "type": "mcq", "q": "What provides the electrical energy in a circuit?", "choices": ["Conductor", "Load", "Power source", "Switch"], "answer": 2, "explain": "" },
+            { "id": "q_u1_mcq15", "type": "mcq", "q": "In which circuit type is there only one current path?", "choices": ["Parallel circuit", "Series circuit", "Open circuit", "Short circuit"], "answer": 1, "explain": "" },
+            { "id": "q_u1_mcq16", "type": "mcq", "q": "If one bulb blows in a series circuit, what happens?", "choices": ["The other bulbs stay lit", "Only one bulb goes out", "All bulbs go out", "Nothing changes"], "answer": 2, "explain": "A series circuit has only one path for current." },
+            { "id": "q_u1_mcq17", "type": "mcq", "q": "In a parallel circuit, what happens if one bulb blows?", "choices": ["All bulbs go out", "The other bulbs stay lit", "The battery dies", "The circuit shorts"], "answer": 1, "explain": "Parallel circuits have multiple paths for current." },
+            { "id": "q_u1_mcq18", "type": "mcq", "q": "What component emits light when current flows through it?", "choices": ["Capacitor", "Resistor", "LED", "Thermistor"], "answer": 2, "explain": "LED = Light Emitting Diode." },
+            { "id": "q_u1_mcq19", "type": "mcq", "q": "What is the main purpose of jumper wires?", "choices": ["To store electrical energy", "To limit current", "To provide electrical connections between components", "To convert AC to DC"], "answer": 2, "explain": "" },
+            { "id": "q_u1_mcq20", "type": "mcq", "q": "Which type of jumper wire has a male pin on one end and a female socket on the other?", "choices": ["M-M", "M-F", "F-F", "F-M"], "answer": 1, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit1_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u1_id1", "type": "ident", "q": "Electronic component that limits or controls the flow of electric current.", "answer": "Resistor", "alts": ["resistors"], "explain": "" },
+            { "id": "q_u1_id2", "type": "ident", "q": "Component whose resistance changes with temperature.", "answer": "Thermistor", "alts": ["thermal resistor"], "explain": "" },
+            { "id": "q_u1_id3", "type": "ident", "q": "Component that temporarily stores electrical energy in a static electric field.", "answer": "Capacitor", "alts": ["capacitors"], "explain": "" },
+            { "id": "q_u1_id4", "type": "ident", "q": "A solderless board used to build and test circuits without soldering.", "answer": "Breadboard", "alts": ["solderless breadboard", "bread board"], "explain": "" },
+            { "id": "q_u1_id5", "type": "ident", "q": "The two long horizontal rows on a breadboard marked with red and blue lines.", "answer": "Power Rails", "alts": ["power rail", "rails", "power rail lines"], "explain": "" },
+            { "id": "q_u1_id6", "type": "ident", "q": "Electronic component that emits light when current passes through it.", "answer": "LED", "alts": ["Light Emitting Diode", "light emitting diode", "light-emitting diode"], "explain": "" },
+            { "id": "q_u1_id7", "type": "ident", "q": "Type of circuit where all components share a single current path.", "answer": "Series Circuit", "alts": ["series", "series connection"], "explain": "" },
+            { "id": "q_u1_id8", "type": "ident", "q": "Type of circuit that has two or more paths for current to flow.", "answer": "Parallel Circuit", "alts": ["parallel", "parallel connection"], "explain": "" },
+            { "id": "q_u1_id9", "type": "ident", "q": "Flexible wires used to connect components on a breadboard.", "answer": "Jumper Wires", "alts": ["jumper wire", "jumpers", "dupont wires", "jumper cables"], "explain": "" },
+            { "id": "q_u1_id10", "type": "ident", "q": "The unit of resistance.", "answer": "Ohm", "alts": ["ohms", "Ω"], "explain": "Symbol is Ω." }
+          ]
+        },
+        {
+          "id": "s_unit1_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u1_enum1", "type": "enum", "q": "Name the 4 basic parts of an electric circuit.", "answers": ["Power Source", "Conductors", "Load", "Switch"], "ordered": false, "explain": "Power source → conductors → load → switch." },
+            { "id": "q_u1_enum2", "type": "enum", "q": "List the 3 types of jumper wire ends available.", "answers": ["Male-to-Male", "Male-to-Female", "Female-to-Female"], "ordered": false, "explain": "Abbreviated as M-M, M-F, and F-F." },
+            { "id": "q_u1_enum3", "type": "enum", "q": "What are the 2 types of resistors based on adjustability?", "answers": ["Fixed Resistor", "Variable Resistor"], "ordered": false, "explain": "" },
+            { "id": "q_u1_enum4", "type": "enum", "q": "List the 4 bands on a color-coded resistor in order (left to right).", "answers": ["Digit 1", "Digit 2", "Multiplier", "Tolerance"], "ordered": true, "explain": "Colors represent the digit, multiplier, and tolerance per EIA standard." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit2_iot_esp32",
+      "title": "Introduction to IoT & ESP32",
+      "subject": "IoT",
+      "description": "Unit 2 reviewer — IoT ecosystem, ESP32 microcontroller, and the Arduino IDE.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit2_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u2_mcq1", "type": "mcq", "q": "What does IoT stand for?", "choices": ["Internet of Things", "Interface of Technology", "Integration of Tools", "Internet of Transfers"], "answer": 0, "explain": "IoT = Internet of Things." },
+            { "id": "q_u2_mcq2", "type": "mcq", "q": "Which company developed the ESP32 microcontroller?", "choices": ["Arduino", "Espressif", "Raspberry Pi Foundation", "Intel"], "answer": 1, "explain": "Espressif Systems developed the ESP32." },
+            { "id": "q_u2_mcq3", "type": "mcq", "q": "Which of these is NOT built into the ESP32?", "choices": ["Wi-Fi", "Bluetooth", "Ethernet port", "Processor"], "answer": 2, "explain": "ESP32 has built-in Wi-Fi and Bluetooth, but no Ethernet port." },
+            { "id": "q_u2_mcq4", "type": "mcq", "q": "Which IoT layer is responsible for analyzing data and deciding what action to take?", "choices": ["Sensors", "Connectivity", "Data Processing", "User Interface"], "answer": 2, "explain": "" },
+            { "id": "q_u2_mcq5", "type": "mcq", "q": "A wearable fitness tracker is an example of IoT in which category?", "choices": ["Smart Home", "Healthcare", "Transportation", "Agriculture"], "answer": 1, "explain": "" },
+            { "id": "q_u2_mcq6", "type": "mcq", "q": "What is the primary function of the ESP32 in an IoT project?", "choices": ["Store data on the cloud", "Process instructions and control connected devices", "Provide internet service", "Display information"], "answer": 1, "explain": "ESP32 acts as the brain of IoT projects." },
+            { "id": "q_u2_mcq7", "type": "mcq", "q": "What does the Verify/Compile button do in the Arduino IDE?", "choices": ["Uploads code to the board", "Checks code for errors", "Opens a new file", "Saves the sketch"], "answer": 1, "explain": "It catches syntax errors like missing semicolons." },
+            { "id": "q_u2_mcq8", "type": "mcq", "q": "Which Arduino IDE button sends your compiled code to the ESP32?", "choices": ["Verify", "Upload", "New", "Serial Monitor"], "answer": 1, "explain": "" },
+            { "id": "q_u2_mcq9", "type": "mcq", "q": "What does the Serial Monitor in the Arduino IDE do?", "choices": ["Saves your sketch", "Displays serial information from the board (useful for debugging)", "Uploads code", "Compiles code"], "answer": 1, "explain": "" },
+            { "id": "q_u2_mcq10", "type": "mcq", "q": "Where do you write your code in the Arduino IDE?", "choices": ["Serial Monitor", "Message Area", "Code Area", "Sketch Name"], "answer": 2, "explain": "" },
+            { "id": "q_u2_mcq11", "type": "mcq", "q": "Which Arduino IDE menu adds a library to your sketch?", "choices": ["File > New", "Sketch > Include Library", "Tools > Programmer", "Edit > Copy"], "answer": 1, "explain": "" },
+            { "id": "q_u2_mcq12", "type": "mcq", "q": "What kind of networks connect IoT devices?", "choices": ["Only wired Ethernet", "Wi-Fi, Bluetooth, or cellular", "Only Bluetooth", "Only Wi-Fi"], "answer": 1, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit2_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u2_id1", "type": "ident", "q": "Vast network of physical objects embedded with sensors, software, and network connectivity.", "answer": "Internet of Things", "alts": ["IoT"], "explain": "" },
+            { "id": "q_u2_id2", "type": "ident", "q": "Microcontroller developed by Espressif with built-in Wi-Fi and Bluetooth.", "answer": "ESP32", "alts": ["Espressif ESP32"], "explain": "" },
+            { "id": "q_u2_id3", "type": "ident", "q": "Software used to write, compile, and upload code to the ESP32.", "answer": "Arduino IDE", "alts": ["Arduino", "Arduino Software", "Arduino Integrated Development Environment"], "explain": "" },
+            { "id": "q_u2_id4", "type": "ident", "q": "IoT layer that collects data from the environment.", "answer": "Sensors", "alts": ["Sensors/Devices", "Sensor Layer", "Devices"], "explain": "" },
+            { "id": "q_u2_id5", "type": "ident", "q": "IoT layer that provides the path for data to reach the cloud.", "answer": "Connectivity", "alts": ["Connectivity Layer"], "explain": "" },
+            { "id": "q_u2_id6", "type": "ident", "q": "IoT layer where mobile apps or dashboards let users view data and send commands.", "answer": "User Interface", "alts": ["UI", "Application Layer"], "explain": "" },
+            { "id": "q_u2_id7", "type": "ident", "q": "Function that checks code for errors in the Arduino IDE.", "answer": "Verify", "alts": ["Compile", "Verify/Compile"], "explain": "" },
+            { "id": "q_u2_id8", "type": "ident", "q": "Window in the Arduino IDE that displays serial information from the board.", "answer": "Serial Monitor", "alts": ["Serial"], "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit2_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u2_enum1", "type": "enum", "q": "List the 4 key elements of an IoT system.", "answers": ["Sensors", "Connectivity", "Data Processing", "User Interface"], "ordered": true, "explain": "Sensors → Connectivity → Data Processing → User Interface." },
+            { "id": "q_u2_enum2", "type": "enum", "q": "Name 3 wireless technologies commonly used for IoT connectivity.", "answers": ["Wi-Fi", "Bluetooth", "Cellular"], "ordered": false, "explain": "" },
+            { "id": "q_u2_enum3", "type": "enum", "q": "What are the 3 main sections of the Arduino IDE?", "answers": ["Menu Bar", "Toolbar", "Status Bar"], "ordered": false, "explain": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit3_digital_io",
+      "title": "Digital Input & Output",
+      "subject": "IoT",
+      "description": "Unit 3 reviewer — digital signals, GPIO pins, and ESP32 programming functions.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit3_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u3_mcq1", "type": "mcq", "q": "How many possible states does a digital signal have?", "choices": ["1", "2", "3", "Unlimited"], "answer": 1, "explain": "Digital signals are either HIGH (1) or LOW (0)." },
+            { "id": "q_u3_mcq2", "type": "mcq", "q": "What does HIGH (1) mean in a digital signal?", "choices": ["OFF / Inactive", "ON / Active", "Unknown", "Floating"], "answer": 1, "explain": "" },
+            { "id": "q_u3_mcq3", "type": "mcq", "q": "Which of the following is a digital INPUT device?", "choices": ["LED", "Buzzer", "Push Button", "Relay"], "answer": 2, "explain": "" },
+            { "id": "q_u3_mcq4", "type": "mcq", "q": "Which of the following is a digital OUTPUT device?", "choices": ["Push Button", "PIR Motion Sensor", "LED", "Limit Switch"], "answer": 2, "explain": "" },
+            { "id": "q_u3_mcq5", "type": "mcq", "q": "What does GPIO stand for?", "choices": ["General-Purpose Input/Output", "Global Pin Interface Operation", "Graphical Pin Input Output", "General Pin Interface Output"], "answer": 0, "explain": "" },
+            { "id": "q_u3_mcq6", "type": "mcq", "q": "Which function reads the state of an input pin?", "choices": ["digitalWrite()", "digitalRead()", "pinMode()", "analogRead()"], "answer": 1, "explain": "" },
+            { "id": "q_u3_mcq7", "type": "mcq", "q": "Which function sets a GPIO pin as INPUT or OUTPUT?", "choices": ["digitalWrite()", "digitalRead()", "pinMode()", "setup()"], "answer": 2, "explain": "" },
+            { "id": "q_u3_mcq8", "type": "mcq", "q": "Which function controls the state of an output pin?", "choices": ["digitalRead()", "pinMode()", "digitalWrite()", "analogWrite()"], "answer": 2, "explain": "" },
+            { "id": "q_u3_mcq9", "type": "mcq", "q": "What is the correct syntax to set pin 4 as an input?", "choices": ["pinMode(4, OUTPUT);", "pinMode(INPUT, 4);", "pinMode(4, INPUT);", "setPin(4, INPUT);"], "answer": 2, "explain": "" },
+            { "id": "q_u3_mcq10", "type": "mcq", "q": "What does digitalRead(4) do?", "choices": ["Turns pin 4 on", "Sets pin 4 as input", "Reads the state of pin 4", "Writes a value to pin 4"], "answer": 2, "explain": "" },
+            { "id": "q_u3_mcq11", "type": "mcq", "q": "What does digitalWrite(2, HIGH) do?", "choices": ["Reads the state of pin 2", "Turns pin 2 ON", "Turns pin 2 OFF", "Sets pin 2 as input"], "answer": 1, "explain": "" },
+            { "id": "q_u3_mcq12", "type": "mcq", "q": "Think of digital input as:", "choices": ["Command going OUT of the ESP32", "Information going INTO the ESP32", "Data stored in memory", "Signal to the cloud"], "answer": 1, "explain": "" },
+            { "id": "q_u3_mcq13", "type": "mcq", "q": "Think of digital output as:", "choices": ["Information coming INTO the ESP32", "Command going OUT of the ESP32", "Reading from a sensor", "Processing input"], "answer": 1, "explain": "" },
+            { "id": "q_u3_mcq14", "type": "mcq", "q": "In the sample code, which pin is the button connected to?", "choices": ["GPIO 2", "GPIO 4", "GPIO 12", "GPIO 13"], "answer": 1, "explain": "" },
+            { "id": "q_u3_mcq15", "type": "mcq", "q": "In the sample code, which pin is the LED connected to?", "choices": ["GPIO 2", "GPIO 4", "GPIO 12", "GPIO 13"], "answer": 0, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit3_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u3_id1", "type": "ident", "q": "Acronym for General-Purpose Input/Output.", "answer": "GPIO", "alts": ["GPIO pins"], "explain": "" },
+            { "id": "q_u3_id2", "type": "ident", "q": "Function that sets a GPIO pin as INPUT or OUTPUT.", "answer": "pinMode", "alts": ["pinMode()"], "explain": "" },
+            { "id": "q_u3_id3", "type": "ident", "q": "Function that reads the state of an input pin.", "answer": "digitalRead", "alts": ["digitalRead()"], "explain": "" },
+            { "id": "q_u3_id4", "type": "ident", "q": "Function that controls the state of an output pin.", "answer": "digitalWrite", "alts": ["digitalWrite()"], "explain": "" },
+            { "id": "q_u3_id5", "type": "ident", "q": "Digital signal state that means ON or Active.", "answer": "HIGH", "alts": ["1"], "explain": "" },
+            { "id": "q_u3_id6", "type": "ident", "q": "Digital signal state that means OFF or Inactive.", "answer": "LOW", "alts": ["0"], "explain": "" },
+            { "id": "q_u3_id7", "type": "ident", "q": "Digital input device that provides a signal when pressed.", "answer": "Push Button", "alts": ["pushbutton", "button"], "explain": "" },
+            { "id": "q_u3_id8", "type": "ident", "q": "Digital output device that emits light.", "answer": "LED", "alts": ["Light Emitting Diode"], "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit3_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u3_enum1", "type": "enum", "q": "List 3 common digital INPUT devices.", "answers": ["Push Button", "Switch", "PIR Motion Sensor"], "ordered": false, "explain": "Also: Digital IR Sensor, Limit Switch." },
+            { "id": "q_u3_enum2", "type": "enum", "q": "List 3 common digital OUTPUT devices.", "answers": ["LED", "Buzzer", "Relay Module"], "ordered": false, "explain": "Also: Digital Display, Motor Driver." },
+            { "id": "q_u3_enum3", "type": "enum", "q": "Name the 3 important ESP32 GPIO functions covered in this unit.", "answers": ["pinMode", "digitalRead", "digitalWrite"], "ordered": false, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit3_code",
+          "type": "code",
+          "title": "Code Challenges",
+          "questions": [
+            { "id": "q_u3_c1", "type": "code", "mode": "blank", "language": "cpp", "title": "Fill in the blanks — pin setup", "prompt": "Complete the setup() so the button is INPUT and the LED is OUTPUT.", "code": "void setup() {\n  pinMode(BUTTON_PIN, [[INPUT]]);\n  pinMode(LED_PIN, [[OUTPUT]]);\n}", "bugLine": null, "fix": "", "explain": "INPUT reads signals; OUTPUT drives devices." },
+            { "id": "q_u3_c2", "type": "code", "mode": "bug", "language": "cpp", "title": "Find the bug", "prompt": "Click the line with the bug, then type the corrected line.", "code": "void loop() {\n  int s = digitalRead(BUTTON_PIN);\n  if (s = HIGH) {\n    digitalWrite(LED_PIN, HIGH);\n  }\n}", "bugLine": 3, "fix": "if (s == HIGH) {", "explain": "`=` assigns; `==` compares. Use `==` for conditions." },
+            { "id": "q_u3_c3", "type": "code", "mode": "arrange", "language": "cpp", "title": "Arrange the lines", "prompt": "Put the button-controlled LED program in the correct order.", "code": "void setup() {\n  pinMode(BUTTON_PIN, INPUT);\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  int state = digitalRead(BUTTON_PIN);\n  if (state == HIGH) {\n    digitalWrite(LED_PIN, HIGH);\n  } else {\n    digitalWrite(LED_PIN, LOW);\n  }\n}", "bugLine": null, "fix": "", "explain": "setup() runs once, loop() repeats." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit4_push_button",
+      "title": "Push Button & Switches",
+      "subject": "IoT",
+      "description": "Unit 4 reviewer — types of switches, SPDT/SPST/DPST/DPDT, and switch applications.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit4_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u4_mcq1", "type": "mcq", "q": "What is the main purpose of a switch in a circuit?", "choices": ["Store energy", "Control the flow of electric current", "Emit light", "Measure resistance"], "answer": 1, "explain": "" },
+            { "id": "q_u4_mcq2", "type": "mcq", "q": "How many states does a switch have?", "choices": ["1", "2", "3", "Unlimited"], "answer": 1, "explain": "ON (closed) and OFF (open)." },
+            { "id": "q_u4_mcq3", "type": "mcq", "q": "What is the impedance of a CLOSED switch?", "choices": ["Infinite", "Zero", "50 ohms", "Variable"], "answer": 1, "explain": "" },
+            { "id": "q_u4_mcq4", "type": "mcq", "q": "What is the impedance of an OPEN switch?", "choices": ["Infinite", "Zero", "50 ohms", "Variable"], "answer": 0, "explain": "" },
+            { "id": "q_u4_mcq5", "type": "mcq", "q": "What does SPST stand for?", "choices": ["Single Pole Single Throw", "Simple Push Single Trigger", "Series Parallel Single Terminal", "Single Pin Single Type"], "answer": 0, "explain": "" },
+            { "id": "q_u4_mcq6", "type": "mcq", "q": "What does SPDT stand for?", "choices": ["Single Pole Double Throw", "Simple Push Double Trigger", "Series Parallel Dual Terminal", "Single Pin Double Type"], "answer": 0, "explain": "" },
+            { "id": "q_u4_mcq7", "type": "mcq", "q": "What does DPST stand for?", "choices": ["Double Pole Single Throw", "Dual Push Single Trigger", "Double Parallel Series Terminal", "Digital Pin Single Type"], "answer": 0, "explain": "" },
+            { "id": "q_u4_mcq8", "type": "mcq", "q": "What does DPDT stand for?", "choices": ["Double Pole Double Throw", "Dual Push Double Trigger", "Digital Parallel Dual Terminal", "Double Pin Double Type"], "answer": 0, "explain": "" },
+            { "id": "q_u4_mcq9", "type": "mcq", "q": "How many pins does a typical push button have?", "choices": ["2", "3", "4", "8"], "answer": 2, "explain": "4 pins (VCC, GND, Data Output x2)." },
+            { "id": "q_u4_mcq10", "type": "mcq", "q": "What is an everyday example of a toggle switch?", "choices": ["Smartphone power button", "Light switch on a wall", "Buzzer", "LED"], "answer": 1, "explain": "" },
+            { "id": "q_u4_mcq11", "type": "mcq", "q": "What is an everyday example of a push button?", "choices": ["Light switch", "Smartphone power button", "Fan speed dial", "Relay"], "answer": 1, "explain": "" },
+            { "id": "q_u4_mcq12", "type": "mcq", "q": "Switches are important in robotics because they:", "choices": ["Store energy", "Allow control over different parts of a circuit", "Increase voltage", "Reduce current only"], "answer": 1, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit4_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u4_id1", "type": "ident", "q": "An electrical device with two states: open or closed.", "answer": "Switch", "alts": ["switches"], "explain": "" },
+            { "id": "q_u4_id2", "type": "ident", "q": "Switch type abbreviated as SPST.", "answer": "Single Pole Single Throw", "alts": ["SPST"], "explain": "" },
+            { "id": "q_u4_id3", "type": "ident", "q": "Switch type abbreviated as SPDT.", "answer": "Single Pole Double Throw", "alts": ["SPDT"], "explain": "" },
+            { "id": "q_u4_id4", "type": "ident", "q": "Switch type abbreviated as DPST.", "answer": "Double Pole Single Throw", "alts": ["DPST"], "explain": "" },
+            { "id": "q_u4_id5", "type": "ident", "q": "Switch type abbreviated as DPDT.", "answer": "Double Pole Double Throw", "alts": ["DPDT"], "explain": "" },
+            { "id": "q_u4_id6", "type": "ident", "q": "A simple switch pressed with a finger to momentarily close a circuit.", "answer": "Push Button", "alts": ["pushbutton", "button"], "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit4_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u4_enum1", "type": "enum", "q": "Name the 4 common types of switches.", "answers": ["SPST", "SPDT", "DPST", "DPDT"], "ordered": false, "explain": "Single/Double Pole + Single/Double Throw." },
+            { "id": "q_u4_enum2", "type": "enum", "q": "What are the 2 states of a switch?", "answers": ["ON", "OFF"], "ordered": false, "explain": "Also called closed and open." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit5_potentiometer",
+      "title": "Potentiometer",
+      "subject": "IoT",
+      "description": "Unit 5 reviewer — variable resistors, wiper terminals, and analog control.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit5_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u5_mcq1", "type": "mcq", "q": "How many terminals does a potentiometer have?", "choices": ["1", "2", "3", "4"], "answer": 2, "explain": "" },
+            { "id": "q_u5_mcq2", "type": "mcq", "q": "What does a potentiometer form when the wiper slides along the resistive element?", "choices": ["A fixed resistor", "An adjustable voltage divider", "A capacitor", "A diode"], "answer": 1, "explain": "" },
+            { "id": "q_u5_mcq3", "type": "mcq", "q": "Which terminal produces the variable voltage?", "choices": ["VCC", "GND", "Wiper/Signal", "Any terminal"], "answer": 2, "explain": "The middle pin is usually the wiper." },
+            { "id": "q_u5_mcq4", "type": "mcq", "q": "Which terminal connects to positive voltage?", "choices": ["VCC", "GND", "Wiper", "Signal"], "answer": 0, "explain": "" },
+            { "id": "q_u5_mcq5", "type": "mcq", "q": "Which terminal connects to ground?", "choices": ["VCC", "GND", "Wiper", "Signal"], "answer": 1, "explain": "" },
+            { "id": "q_u5_mcq6", "type": "mcq", "q": "Which type is the most common potentiometer?", "choices": ["Rotary", "Linear", "Digital", "Optical"], "answer": 0, "explain": "" },
+            { "id": "q_u5_mcq7", "type": "mcq", "q": "Linear potentiometers are often used as:", "choices": ["Volume knobs", "Sliders", "Buttons", "LEDs"], "answer": 1, "explain": "" },
+            { "id": "q_u5_mcq8", "type": "mcq", "q": "Which function reads the analog value from a potentiometer on the ESP32?", "choices": ["digitalRead()", "analogRead()", "digitalWrite()", "analogWrite()"], "answer": 1, "explain": "" },
+            { "id": "q_u5_mcq9", "type": "mcq", "q": "A potentiometer is essentially what kind of component?", "choices": ["A fixed resistor", "A variable resistor", "A capacitor", "A transistor"], "answer": 1, "explain": "" },
+            { "id": "q_u5_mcq10", "type": "mcq", "q": "Which of these is NOT a common application of a potentiometer?", "choices": ["Volume control", "LED brightness", "Motor speed control", "Wi-Fi transmission"], "answer": 3, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit5_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u5_id1", "type": "ident", "q": "Three-terminal resistor with a sliding contact that forms an adjustable voltage divider.", "answer": "Potentiometer", "alts": ["pot", "variable resistor"], "explain": "" },
+            { "id": "q_u5_id2", "type": "ident", "q": "The sliding contact that moves along the resistive element.", "answer": "Wiper", "alts": ["wiper pin", "signal pin"], "explain": "" },
+            { "id": "q_u5_id3", "type": "ident", "q": "Most common type of potentiometer.", "answer": "Rotary", "alts": ["rotary potentiometer"], "explain": "" },
+            { "id": "q_u5_id4", "type": "ident", "q": "Type of potentiometer that uses a slider instead of a knob.", "answer": "Linear", "alts": ["linear potentiometer", "slider"], "explain": "" },
+            { "id": "q_u5_id5", "type": "ident", "q": "Function used to read the analog voltage from the wiper on the ESP32.", "answer": "analogRead", "alts": ["analogRead()"], "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit5_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u5_enum1", "type": "enum", "q": "Name the 3 terminals of a potentiometer.", "answers": ["VCC", "GND", "Wiper"], "ordered": false, "explain": "Wiper is the middle pin." },
+            { "id": "q_u5_enum2", "type": "enum", "q": "List 3 common applications of a potentiometer.", "answers": ["Volume control", "LED brightness control", "Motor speed control"], "ordered": false, "explain": "Also: game controllers, robotics, analog sensor input." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit6_ldr",
+      "title": "Light Dependent Resistor (LDR)",
+      "subject": "IoT",
+      "description": "Unit 6 reviewer — how LDRs detect light and change resistance.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit6_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u6_mcq1", "type": "mcq", "q": "What does LDR stand for?", "choices": ["Light Dependent Resistor", "Low Digital Resistor", "Logic Data Reader", "Light Diode Receiver"], "answer": 0, "explain": "" },
+            { "id": "q_u6_mcq2", "type": "mcq", "q": "What happens to LDR resistance in bright light?", "choices": ["Increases", "Decreases", "Stays the same", "Becomes infinite"], "answer": 1, "explain": "" },
+            { "id": "q_u6_mcq3", "type": "mcq", "q": "What happens to LDR resistance in darkness?", "choices": ["Increases", "Decreases", "Stays the same", "Becomes zero"], "answer": 0, "explain": "" },
+            { "id": "q_u6_mcq4", "type": "mcq", "q": "Another name for an LDR is:", "choices": ["Photoresistor", "Thermistor", "Varistor", "Capacitor"], "answer": 0, "explain": "Also called photocell or light sensor." },
+            { "id": "q_u6_mcq5", "type": "mcq", "q": "Unlike a push button, an LDR provides what kind of signal?", "choices": ["Digital", "Analog", "Binary", "PWM"], "answer": 1, "explain": "" },
+            { "id": "q_u6_mcq6", "type": "mcq", "q": "Which principle describes the LDR?", "choices": ["More light = higher resistance", "More light = lower resistance", "Light has no effect", "Only darkness matters"], "answer": 1, "explain": "" },
+            { "id": "q_u6_mcq7", "type": "mcq", "q": "Which function reads the analog value from an LDR on the ESP32?", "choices": ["digitalRead()", "analogRead()", "digitalWrite()", "analogWrite()"], "answer": 1, "explain": "" },
+            { "id": "q_u6_mcq8", "type": "mcq", "q": "An LDR is useful for which type of system?", "choices": ["Motion detection", "Temperature sensing", "Automatic lighting", "Distance measurement"], "answer": 2, "explain": "" },
+            { "id": "q_u6_mcq9", "type": "mcq", "q": "Another common name for an LDR is:", "choices": ["Photocell", "Buzzer", "Relay", "Servo"], "answer": 0, "explain": "" },
+            { "id": "q_u6_mcq10", "type": "mcq", "q": "An LDR provides a changing analog signal, unlike a push button which provides:", "choices": ["A varying voltage", "A simple digital state", "An infinite signal", "A PWM signal"], "answer": 1, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit6_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u6_id1", "type": "ident", "q": "Component whose resistance changes based on the amount of light falling on its surface.", "answer": "LDR", "alts": ["Light Dependent Resistor", "Photoresistor", "Photocell", "Light Sensor"], "explain": "" },
+            { "id": "q_u6_id2", "type": "ident", "q": "The resistance of an LDR increases when this happens.", "answer": "Darkness", "alts": ["Less light", "Dark", "Night"], "explain": "" },
+            { "id": "q_u6_id3", "type": "ident", "q": "The resistance of an LDR decreases when this happens.", "answer": "Bright Light", "alts": ["More light", "Bright", "Light"], "explain": "" },
+            { "id": "q_u6_id4", "type": "ident", "q": "Function used to read the analog value from an LDR.", "answer": "analogRead", "alts": ["analogRead()"], "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit6_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u6_enum1", "type": "enum", "q": "Name 3 alternate names for an LDR.", "answers": ["Photoresistor", "Photocell", "Light Sensor"], "ordered": false, "explain": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit7_lcd_i2c",
+      "title": "Liquid Crystal Display I2C (LCD I2C)",
+      "subject": "IoT",
+      "description": "Unit 7 reviewer — I2C communication, LCD advantages, and applications.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit7_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u7_mcq1", "type": "mcq", "q": "How many wires does I2C need for communication?", "choices": ["1", "2", "4", "8"], "answer": 1, "explain": "SDA and SCL — 2 lines." },
+            { "id": "q_u7_mcq2", "type": "mcq", "q": "What does SDA stand for?", "choices": ["Serial Data", "Signal Data Line", "System Data Access", "Serial Display Access"], "answer": 0, "explain": "Serial Data Line." },
+            { "id": "q_u7_mcq3", "type": "mcq", "q": "What does SCL stand for?", "choices": ["Serial Clock", "Signal Clock Line", "System Clock Line", "Serial Clear Line"], "answer": 0, "explain": "Serial Clock Line." },
+            { "id": "q_u7_mcq4", "type": "mcq", "q": "What is a major advantage of I2C LCD over regular LCD?", "choices": ["More wires", "Fewer wires", "Bigger screen", "Higher resolution"], "answer": 1, "explain": "" },
+            { "id": "q_u7_mcq5", "type": "mcq", "q": "How many GPIO pins does an I2C LCD use for communication?", "choices": ["1", "2", "4", "8"], "answer": 1, "explain": "SDA and SCL." },
+            { "id": "q_u7_mcq6", "type": "mcq", "q": "Which library simplifies the code needed to control the LCD display?", "choices": ["Wire", "LiquidCrystal_I2C", "Servo", "SPI"], "answer": 1, "explain": "" },
+            { "id": "q_u7_mcq7", "type": "mcq", "q": "What type of data does an LCD I2C display?", "choices": ["Only numbers", "Only letters", "Text and numbers", "Only symbols"], "answer": 2, "explain": "" },
+            { "id": "q_u7_mcq8", "type": "mcq", "q": "Which of these is NOT an application of LCD I2C?", "choices": ["Home weather station", "Digital clock", "Remote control panel", "Servo positioning"], "answer": 3, "explain": "" },
+            { "id": "q_u7_mcq9", "type": "mcq", "q": "The LCD I2C uses how many communication lines?", "choices": ["1", "2", "3", "4"], "answer": 1, "explain": "" },
+            { "id": "q_u7_mcq10", "type": "mcq", "q": "Which pin on the ESP32 is commonly used for SDA?", "choices": ["GPIO 4", "GPIO 21", "GPIO 12", "GPIO 13"], "answer": 1, "explain": "GPIO 21 = SDA (default)." },
+            { "id": "q_u7_mcq11", "type": "mcq", "q": "Which pin on the ESP32 is commonly used for SCL?", "choices": ["GPIO 4", "GPIO 22", "GPIO 12", "GPIO 13"], "answer": 1, "explain": "GPIO 22 = SCL (default)." }
+          ]
+        },
+        {
+          "id": "s_unit7_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u7_id1", "type": "ident", "q": "Two-wire serial protocol used by I2C LCDs.", "answer": "I2C", "alts": ["IIC", "I²C", "Inter-Integrated Circuit"], "explain": "" },
+            { "id": "q_u7_id2", "type": "ident", "q": "Serial Data Line.", "answer": "SDA", "alts": ["Serial Data"], "explain": "" },
+            { "id": "q_u7_id3", "type": "ident", "q": "Serial Clock Line.", "answer": "SCL", "alts": ["Serial Clock"], "explain": "" },
+            { "id": "q_u7_id4", "type": "ident", "q": "Library used to simplify LCD I2C programming on Arduino/ESP32.", "answer": "LiquidCrystal_I2C", "alts": ["LiquidCrystal I2C", "LiquidCrystal"], "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit7_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u7_enum1", "type": "enum", "q": "List 3 advantages of using an LCD I2C over a regular LCD.", "answers": ["Fewer Wires", "More GPIO Pins Available", "Easier Setup"], "ordered": false, "explain": "Also: Simplified Code." },
+            { "id": "q_u7_enum2", "type": "enum", "q": "List 3 applications of LCD I2C.", "answers": ["Home Weather Station", "Digital Clocks", "Remote Control Panel"], "ordered": false, "explain": "Also: Production Data (Winding Machine)." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit8_ultrasonic",
+      "title": "Ultrasonic Sensor",
+      "subject": "IoT",
+      "description": "Unit 8 reviewer — HC-SR04 sensor, TRIG/ECHO pins, and distance measurement.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit8_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u8_mcq1", "type": "mcq", "q": "What type of wave does an ultrasonic sensor emit?", "choices": ["Light wave", "High-frequency sound wave", "Radio wave", "Magnetic wave"], "answer": 1, "explain": "" },
+            { "id": "q_u8_mcq2", "type": "mcq", "q": "What frequency does the HC-SR04 sensor use?", "choices": ["20 Hz", "40 kHz", "1 MHz", "5 kHz"], "answer": 1, "explain": "" },
+            { "id": "q_u8_mcq3", "type": "mcq", "q": "Which pin sends the ultrasonic pulse?", "choices": ["VCC", "TRIG", "ECHO", "GND"], "answer": 1, "explain": "" },
+            { "id": "q_u8_mcq4", "type": "mcq", "q": "Which pin receives the reflected pulse?", "choices": ["VCC", "TRIG", "ECHO", "GND"], "answer": 2, "explain": "" },
+            { "id": "q_u8_mcq5", "type": "mcq", "q": "How long must TRIG be set HIGH to send a pulse?", "choices": ["1 microsecond", "10 microseconds", "100 microseconds", "1 millisecond"], "answer": 1, "explain": "" },
+            { "id": "q_u8_mcq6", "type": "mcq", "q": "What is the accurate measurement range of the HC-SR04?", "choices": ["1 cm to 10 cm", "2 cm to 400 cm", "5 cm to 100 cm", "10 cm to 500 cm"], "answer": 1, "explain": "" },
+            { "id": "q_u8_mcq7", "type": "mcq", "q": "How does the sensor determine distance?", "choices": ["By measuring resistance", "By measuring time for sound to return", "By measuring voltage", "By measuring current"], "answer": 1, "explain": "" },
+            { "id": "q_u8_mcq8", "type": "mcq", "q": "Which of these is a disadvantage of ultrasonic sensors?", "choices": ["High cost", "Long response time", "Affected by soft materials", "Requires many wires"], "answer": 2, "explain": "" },
+            { "id": "q_u8_mcq9", "type": "mcq", "q": "How many pins does an HC-SR04 have?", "choices": ["2", "3", "4", "5"], "answer": 2, "explain": "VCC, TRIG, ECHO, GND." },
+            { "id": "q_u8_mcq10", "type": "mcq", "q": "Which application uses an ultrasonic sensor to detect cars nearby?", "choices": ["Weather station", "Parking assist", "Digital clock", "Servo control"], "answer": 1, "explain": "" },
+            { "id": "q_u8_mcq11", "type": "mcq", "q": "What does the ultrasonic sensor NOT detect well?", "choices": ["Walls", "Metals", "Soft materials like cloth", "Wood"], "answer": 2, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit8_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u8_id1", "type": "ident", "q": "Sensor that measures distance using high-frequency sound waves.", "answer": "Ultrasonic Sensor", "alts": ["Ultrasonic", "HC-SR04"], "explain": "" },
+            { "id": "q_u8_id2", "type": "ident", "q": "Pin that sends the ultrasonic pulse.", "answer": "TRIG", "alts": ["Trigger", "Trigger Pin"], "explain": "" },
+            { "id": "q_u8_id3", "type": "ident", "q": "Pin that receives the reflected ultrasonic pulse.", "answer": "ECHO", "alts": ["Echo", "Echo Pin"], "explain": "" },
+            { "id": "q_u8_id4", "type": "ident", "q": "Common ultrasonic sensor module used in ESP32 projects.", "answer": "HC-SR04", "alts": ["HC SR04"], "explain": "" },
+            { "id": "q_u8_id5", "type": "ident", "q": "The frequency used by the HC-SR04 ultrasonic sensor.", "answer": "40 kHz", "alts": ["40kHz", "40 KHz"], "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit8_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u8_enum1", "type": "enum", "q": "Name the 4 pins of the HC-SR04 ultrasonic sensor.", "answers": ["VCC", "TRIG", "ECHO", "GND"], "ordered": false, "explain": "" },
+            { "id": "q_u8_enum2", "type": "enum", "q": "List 3 advantages of ultrasonic sensors.", "answers": ["Accurate Distance Measurement", "Non-Contact Sensing", "Affordable"], "ordered": false, "explain": "Also: Simple Interface, Low Power Consumption." },
+            { "id": "q_u8_enum3", "type": "enum", "q": "List 3 disadvantages of ultrasonic sensors.", "answers": ["Affected by Soft Materials", "Limited Detection Angle", "Interference"], "ordered": false, "explain": "Also: Slower Response, Environmental Effects." },
+            { "id": "q_u8_enum4", "type": "enum", "q": "List 3 applications of ultrasonic sensors.", "answers": ["Water Level Monitoring", "Parking Assist Systems", "Automatic Door Systems"], "ordered": false, "explain": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit9_servo",
+      "title": "Servo Motor",
+      "subject": "IoT",
+      "description": "Unit 9 reviewer — servo components, PWM control, and movement range.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit9_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u9_mcq1", "type": "mcq", "q": "A servo motor is designed to provide precise control of what?", "choices": ["Temperature", "Position, speed, and movement", "Voltage", "Current"], "answer": 1, "explain": "" },
+            { "id": "q_u9_mcq2", "type": "mcq", "q": "Which component reduces the motor's speed while increasing torque?", "choices": ["Gearbox", "Potentiometer", "Controller", "DC Motor"], "answer": 0, "explain": "" },
+            { "id": "q_u9_mcq3", "type": "mcq", "q": "Which component measures the output shaft position?", "choices": ["Gearbox", "Potentiometer", "Controller", "DC Motor"], "answer": 1, "explain": "" },
+            { "id": "q_u9_mcq4", "type": "mcq", "q": "Which component generates rotational force?", "choices": ["Gearbox", "Potentiometer", "Controller", "DC Motor"], "answer": 3, "explain": "" },
+            { "id": "q_u9_mcq5", "type": "mcq", "q": "What signal is used to control servo motors?", "choices": ["Analog", "PWM", "Digital only", "I2C"], "answer": 1, "explain": "Pulse Width Modulation." },
+            { "id": "q_u9_mcq6", "type": "mcq", "q": "What frequency is typically used for servo PWM signals?", "choices": ["1 Hz", "50 Hz", "60 Hz", "1000 Hz"], "answer": 1, "explain": "" },
+            { "id": "q_u9_mcq7", "type": "mcq", "q": "What pulse width corresponds to 0 degrees on a standard servo?", "choices": ["0.5 ms", "1 ms", "1.5 ms", "2 ms"], "answer": 1, "explain": "" },
+            { "id": "q_u9_mcq8", "type": "mcq", "q": "What pulse width corresponds to 180 degrees on a standard servo?", "choices": ["1 ms", "1.5 ms", "2 ms", "2.5 ms"], "answer": 2, "explain": "" },
+            { "id": "q_u9_mcq9", "type": "mcq", "q": "What is the typical movement range of a standard servo?", "choices": ["0-90 degrees", "0-180 degrees", "0-270 degrees", "360 degrees"], "answer": 1, "explain": "" },
+            { "id": "q_u9_mcq10", "type": "mcq", "q": "Which wire color is GND on a servo motor?", "choices": ["Red", "Brown", "Orange", "Black"], "answer": 1, "explain": "" },
+            { "id": "q_u9_mcq11", "type": "mcq", "q": "Which wire color is VCC on a servo motor?", "choices": ["Red", "Brown", "Orange", "Yellow"], "answer": 0, "explain": "" },
+            { "id": "q_u9_mcq12", "type": "mcq", "q": "Which wire color is PWM on a servo motor?", "choices": ["Red", "Brown", "Orange", "Green"], "answer": 2, "explain": "" },
+            { "id": "q_u9_mcq13", "type": "mcq", "q": "Which type of servo can rotate continuously?", "choices": ["Standard Servo", "Micro Servo", "Continuous Rotation Servo", "Digital Servo"], "answer": 2, "explain": "" },
+            { "id": "q_u9_mcq14", "type": "mcq", "q": "What kind of control does a servo use to maintain accuracy?", "choices": ["Open-loop", "Closed-loop", "Manual", "Random"], "answer": 1, "explain": "Feedback from potentiometer." }
+          ]
+        },
+        {
+          "id": "s_unit9_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u9_id1", "type": "ident", "q": "Motor designed to provide precise control of position, speed, and movement.", "answer": "Servo Motor", "alts": ["Servo"], "explain": "" },
+            { "id": "q_u9_id2", "type": "ident", "q": "Component in a servo that provides feedback on position.", "answer": "Potentiometer", "alts": ["pot"], "explain": "" },
+            { "id": "q_u9_id3", "type": "ident", "q": "Component in a servo that reduces speed and increases torque.", "answer": "Gearbox", "alts": ["gears"], "explain": "" },
+            { "id": "q_u9_id4", "type": "ident", "q": "Signal type used to control a servo motor.", "answer": "PWM", "alts": ["Pulse Width Modulation"], "explain": "" },
+            { "id": "q_u9_id5", "type": "ident", "q": "Type of servo that can rotate continuously in either direction.", "answer": "Continuous Rotation Servo", "alts": ["Continuous Servo"], "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit9_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u9_enum1", "type": "enum", "q": "List the 4 main components of a micro servo motor.", "answers": ["Gearbox", "Potentiometer", "DC Motor", "Controller"], "ordered": false, "explain": "" },
+            { "id": "q_u9_enum2", "type": "enum", "q": "Name the 3 wires of a servo motor and their colors.", "answers": ["Brown GND", "Red VCC", "Orange PWM"], "ordered": false, "explain": "Brown=GND, Red=VCC, Orange=PWM." },
+            { "id": "q_u9_enum3", "type": "enum", "q": "List 3 applications of servo motors.", "answers": ["Robotics", "RC Vehicles", "Model Aircraft"], "ordered": false, "explain": "Also: Automation." },
+            { "id": "q_u9_enum4", "type": "enum", "q": "What are the 3 types of servo motors?", "answers": ["Standard Servo", "Micro Servo", "Continuous Rotation Servo"], "ordered": false, "explain": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_unit10_seven_segment",
+      "title": "7-Segment Display",
+      "subject": "IoT",
+      "description": "Unit 10 reviewer — segments, common anode/cathode, and numeral display.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": true,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_unit10_mcq",
+          "type": "mcq",
+          "title": "Multiple Choice",
+          "questions": [
+            { "id": "q_u10_mcq1", "type": "mcq", "q": "How many LED segments are in a 7-segment display (excluding DP)?", "choices": ["5", "6", "7", "8"], "answer": 2, "explain": "" },
+            { "id": "q_u10_mcq2", "type": "mcq", "q": "What shape are the segments arranged in?", "choices": ["Number 0", "Number 8", "Letter A", "Square"], "answer": 1, "explain": "" },
+            { "id": "q_u10_mcq3", "type": "mcq", "q": "How many LEDs total does a typical 7-segment display have (including DP)?", "choices": ["6", "7", "8", "10"], "answer": 2, "explain": "7 segments + 1 decimal point." },
+            { "id": "q_u10_mcq4", "type": "mcq", "q": "In a COMMON CATHODE display, a segment turns ON with:", "choices": ["HIGH (1)", "LOW (0)", "Any voltage", "PWM only"], "answer": 0, "explain": "" },
+            { "id": "q_u10_mcq5", "type": "mcq", "q": "In a COMMON ANODE display, a segment turns ON with:", "choices": ["HIGH (1)", "LOW (0)", "Any voltage", "PWM only"], "answer": 1, "explain": "" },
+            { "id": "q_u10_mcq6", "type": "mcq", "q": "In a Common Cathode display, all the cathodes are:", "choices": ["Separate", "Connected together", "Floating", "Disconnected"], "answer": 1, "explain": "" },
+            { "id": "q_u10_mcq7", "type": "mcq", "q": "What does DP stand for on a 7-segment display?", "choices": ["Digital Pin", "Decimal Point", "Data Port", "Display Pixel"], "answer": 1, "explain": "" },
+            { "id": "q_u10_mcq8", "type": "mcq", "q": "Which is an alternative to a 7-segment display?", "choices": ["Dot matrix display", "LED matrix", "LCD panel", "CRT monitor"], "answer": 0, "explain": "" },
+            { "id": "q_u10_mcq9", "type": "mcq", "q": "A 7-segment display can show which of the following?", "choices": ["Numbers only", "Letters only", "Both numbers and some letters", "Only symbols"], "answer": 2, "explain": "" },
+            { "id": "q_u10_mcq10", "type": "mcq", "q": "Which is NOT a common application of a 7-segment display?", "choices": ["Digital clocks", "Basic calculators", "Digital cameras", "Scoreboards"], "answer": 2, "explain": "" }
+          ]
+        },
+        {
+          "id": "s_unit10_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_u10_id1", "type": "ident", "q": "Electronic display device that shows decimal numerals using 8 LEDs.", "answer": "7-Segment Display", "alts": ["Seven-Segment Display", "SSD", "7 segment display"], "explain": "" },
+            { "id": "q_u10_id2", "type": "ident", "q": "Two-letter abbreviation for the decimal point on a 7-segment display.", "answer": "DP", "alts": ["Decimal Point"], "explain": "" },
+            { "id": "q_u10_id3", "type": "ident", "q": "Type of display where all cathodes of the segments are connected together.", "answer": "Common Cathode", "alts": ["CC"], "explain": "" },
+            { "id": "q_u10_id4", "type": "ident", "q": "Type of display where all anodes of the segments are connected together.", "answer": "Common Anode", "alts": ["CA"], "explain": "" }
+          ]
+        },
+             {
+          "id": "s_unit10_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_u10_enum1", "type": "enum", "q": "Name the 2 types of 7-segment displays based on polarity.", "answers": ["Common Cathode", "Common Anode"], "ordered": false, "explain": "" },
+            { "id": "q_u10_enum2", "type": "enum", "q": "List 3 applications of a 7-segment display.", "answers": ["Digital clocks", "Basic calculators", "Scoreboards"], "ordered": false, "explain": "Also: counters, electronic measuring devices." },
+            { "id": "q_u10_enum3", "type": "enum", "q": "List the 8 LEDs in a 7-segment display (name them).", "answers": ["a", "b", "c", "d", "e", "f", "g", "DP"], "ordered": false, "explain": "7 segments (a-g) + DP." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quiz_code_challenges_units_1_to_10",
+      "title": "BrainError — Code Challenges (Units 1–10)",
+      "subject": "Programming",
+      "description": "38 hands-on ESP32 code challenges: fill-in-the-blanks, find-the-bug, fix-the-syntax, and arrange-the-lines. Covers pins, buttons, LCD I2C, ultrasonic, servos, and 7-segment displays.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": false,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 90 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_code_fill",
+          "type": "code",
+          "title": "Fill in the Blanks",
+          "questions": [
+            { "id": "q_cf1", "type": "code", "mode": "blank", "language": "cpp", "title": "Blink setup — Pin modes", "prompt": "Complete the setup() so the button is INPUT and the LED is OUTPUT.", "code": "void setup() {\n  pinMode(BUTTON_PIN, [[INPUT]]);\n  pinMode(LED_PIN, [[OUTPUT]]);\n}", "bugLine": null, "fix": "", "explain": "INPUT reads signals; OUTPUT drives devices." },
+            { "id": "q_cf2", "type": "code", "mode": "blank", "language": "cpp", "title": "Reading a button and driving an LED", "prompt": "Fill in the missing function calls and state constants.", "code": "void loop() {\n  int state = [[digitalRead]](BUTTON_PIN);\n  if (state == [[HIGH]]) {\n    [[digitalWrite]](LED_PIN, HIGH);\n  } else {\n    digitalWrite(LED_PIN, [[LOW]]);\n  }\n}", "bugLine": null, "fix": "", "explain": "digitalRead returns the state; digitalWrite sets it." },
+            { "id": "q_cf3", "type": "code", "mode": "blank", "language": "cpp", "title": "Serial monitor basics", "prompt": "Complete the code so the ESP32 prints 'Hello' every second.", "code": "void setup() {\n  Serial.[[begin]](9600);\n}\n\nvoid loop() {\n  Serial.[[println]](\"Hello\");\n  [[delay]](1000);\n}", "bugLine": null, "fix": "", "explain": "Serial.begin starts serial comm; println sends a line; delay pauses in milliseconds." },
+            { "id": "q_cf4", "type": "code", "mode": "blank", "language": "cpp", "title": "Analog sensor read", "prompt": "Complete the analog reading of a sensor connected to pin 34.", "code": "void loop() {\n  int value = [[analogRead]](34);\n  Serial.println(value);\n  delay([[100]]);\n}", "bugLine": null, "fix": "", "explain": "analogRead returns 0–4095 on the ESP32 (12-bit ADC)." },
+            { "id": "q_cf5", "type": "code", "mode": "blank", "language": "cpp", "title": "LDR-based automatic light", "prompt": "Complete the logic so the LED turns ON in the dark.", "code": "void loop() {\n  int light = analogRead(LDR_PIN);\n  if (light [[<]] 500) {\n    digitalWrite(LED_PIN, [[HIGH]]);\n  } else {\n    digitalWrite(LED_PIN, LOW);\n  }\n}", "bugLine": null, "fix": "", "explain": "Low light value means darkness → turn LED on." },
+            { "id": "q_cf6", "type": "code", "mode": "blank", "language": "cpp", "title": "Ultrasonic pulse send", "prompt": "Complete the TRIG pulse and ECHO reading.", "code": "void loop() {\n  digitalWrite(TRIG, [[LOW]]);\n  delayMicroseconds(2);\n  digitalWrite(TRIG, [[HIGH]]);\n  delayMicroseconds([[10]]);\n  digitalWrite(TRIG, LOW);\n  long duration = pulseIn(ECHO, [[HIGH]]);\n}", "bugLine": null, "fix": "", "explain": "TRIG must be HIGH for 10 microseconds to send a pulse." },
+            { "id": "q_cf7", "type": "code", "mode": "blank", "language": "cpp", "title": "Servo position sweep", "prompt": "Complete the servo sweep from 0 to 180 degrees.", "code": "#include <Servo.h>\nServo myServo;\n\nvoid setup() {\n  myServo.[[attach]](9);\n}\n\nvoid loop() {\n  for (int angle = 0; angle <= 180; angle += 10) {\n    myServo.[[write]](angle);\n    delay([[15]]);\n  }\n}", "bugLine": null, "fix": "", "explain": "attach() binds the pin; write() moves the servo to an angle." },
+            { "id": "q_cf8", "type": "code", "mode": "blank", "language": "cpp", "title": "LCD I2C initialization", "prompt": "Complete the LCD I2C setup with address 0x27 and 16 columns × 2 rows.", "code": "#include <Wire.h>\n#include <LiquidCrystal_I2C.h>\n\nLiquidCrystal_I2C lcd([[0x27]], [[16]], [[2]]);\n\nvoid setup() {\n  lcd.[[init]]();\n  lcd.backlight();\n}", "bugLine": null, "fix": "", "explain": "I2C address, columns, rows; init() wakes it up." },
+            { "id": "q_cf9", "type": "code", "mode": "blank", "language": "cpp", "title": "LCD print on line 2", "prompt": "Print 'Ready' on the second line of the LCD.", "code": "void loop() {\n  lcd.[[setCursor]](0, 1);\n  lcd.[[print]](\"Ready\");\n  delay([[500]]);\n}", "bugLine": null, "fix": "", "explain": "setCursor(col, row) — row 1 is the second line." },
+            { "id": "q_cf10", "type": "code", "mode": "blank", "language": "cpp", "title": "7-segment digit display (Common Cathode)", "prompt": "Turn on the correct segments to display the digit '1' on a Common Cathode display.", "code": "// Segments: a b c d e f g  (Common Cathode)\n// To show '1', turn on b and c only.\nvoid showOne() {\n  digitalWrite(SEG_A, [[LOW]]);\n  digitalWrite(SEG_B, [[HIGH]]);\n  digitalWrite(SEG_C, [[HIGH]]);\n  digitalWrite(SEG_D, LOW);\n  digitalWrite(SEG_E, LOW);\n  digitalWrite(SEG_F, LOW);\n  digitalWrite(SEG_G, [[LOW]]);\n}", "bugLine": null, "fix": "", "explain": "Common Cathode: HIGH turns a segment ON; only b and c are needed for '1'." },
+            { "id": "q_cf11", "type": "code", "mode": "blank", "language": "cpp", "title": "Pin mode for I2C", "prompt": "Complete the Wire.begin() call with the ESP32 default I2C pins.", "code": "#include <Wire.h>\n\nvoid setup() {\n  Wire.[[begin]]([[21]], [[22]]);\n}", "bugLine": null, "fix": "", "explain": "GPIO 21 = SDA, GPIO 22 = SCL on the ESP32." },
+            { "id": "q_cf12", "type": "code", "mode": "blank", "language": "cpp", "title": "Ultrasonic distance calculation", "prompt": "Complete the distance formula (cm = duration / 58) and print it.", "code": "long duration = pulseIn(ECHO, HIGH);\nlong distance_cm = duration [[/]] 58;\nSerial.[[print]](\"Distance: \");\nSerial.[[println]](distance_cm);", "bugLine": null, "fix": "", "explain": "Sound travels 1 cm in ~29 µs, and the echo round-trips, so divide by 58." }
+          ]
+        },
+        {
+          "id": "s_code_bug",
+          "type": "code",
+          "title": "Find the Bug",
+          "questions": [
+            { "id": "q_cb1", "type": "code", "mode": "bug", "language": "cpp", "title": "Assignment vs comparison", "prompt": "Click the buggy line, then type the corrected line.", "code": "void loop() {\n  int s = digitalRead(4);\n  if (s = HIGH) {\n    digitalWrite(2, HIGH);\n  }\n}", "bugLine": 3, "fix": "  if (s == HIGH) {", "explain": "`=` assigns; `==` compares. Use `==` inside if." },
+            { "id": "q_cb2", "type": "code", "mode": "bug", "language": "cpp", "title": "Missing pin mode", "prompt": "Click the buggy line, then type the corrected line.", "code": "void setup() {\n  pinMode(LED_PIN, INPUT);\n}\n\nvoid loop() {\n  digitalWrite(LED_PIN, HIGH);\n}", "bugLine": 2, "fix": "  pinMode(LED_PIN, OUTPUT);", "explain": "To write to an LED you need OUTPUT, not INPUT." },
+            { "id": "q_cb3", "type": "code", "mode": "bug", "language": "cpp", "title": "Wrong digital function", "prompt": "Click the buggy line, then type the corrected line.", "code": "void loop() {\n  int v = digitalWrite(34);\n  Serial.println(v);\n}", "bugLine": 2, "fix": "  int v = digitalRead(34);", "explain": "digitalWrite sets a state; digitalRead reads it." },
+            { "id": "q_cb4", "type": "code", "mode": "bug", "language": "cpp", "title": "Serial not initialized", "prompt": "Click the buggy line, then type the corrected line.", "code": "void setup() {\n  pinMode(2, OUTPUT);\n}\n\nvoid loop() {\n  Serial.println(\"Hi\");\n  delay(1000);\n}", "bugLine": 2, "fix": "  Serial.begin(9600);", "explain": "You must call Serial.begin() in setup() before using Serial.println()." },
+            { "id": "q_cb5", "type": "code", "mode": "bug", "language": "cpp", "title": "TRIG pulse too long", "prompt": "Click the buggy line, then type the corrected line.", "code": "digitalWrite(TRIG, LOW);\ndelayMicroseconds(2);\ndigitalWrite(TRIG, HIGH);\ndelayMicroseconds(1000);\ndigitalWrite(TRIG, LOW);", "bugLine": 4, "fix": "delayMicroseconds(10);", "explain": "The TRIG pulse must be exactly 10 microseconds for HC-SR04." },
+            { "id": "q_cb6", "type": "code", "mode": "bug", "language": "cpp", "title": "Forgetting to attach the servo", "prompt": "Click the buggy line, then type the corrected line.", "code": "#include <Servo.h>\nServo s;\n\nvoid setup() {\n  pinMode(9, OUTPUT);\n}\n\nvoid loop() {\n  s.write(90);\n}", "bugLine": 5, "fix": "  s.attach(9);", "explain": "Servos use attach(), not pinMode()." },
+            { "id": "q_cb7", "type": "code", "mode": "bug", "language": "cpp", "title": "LCD not initialized", "prompt": "Click the buggy line, then type the corrected line.", "code": "LiquidCrystal_I2C lcd(0x27, 16, 2);\n\nvoid setup() {\n  lcd.backlight();\n  lcd.print(\"Hi\");\n}", "bugLine": 4, "fix": "  lcd.init();", "explain": "You must call lcd.init() before using the display." },
+            { "id": "q_cb8", "type": "code", "mode": "bug", "language": "cpp", "title": "7-segment segment order", "prompt": "Click the buggy line, then type the corrected line.", "code": "// Common Cathode: show digit '0' (all except g)\nvoid showZero() {\n  digitalWrite(SEG_A, HIGH);\n  digitalWrite(SEG_B, HIGH);\n  digitalWrite(SEG_C, HIGH);\n  digitalWrite(SEG_D, HIGH);\n  digitalWrite(SEG_E, HIGH);\n  digitalWrite(SEG_F, HIGH);\n  digitalWrite(SEG_G, HIGH);\n}", "bugLine": 9, "fix": "  digitalWrite(SEG_G, LOW);", "explain": "To show '0', the middle segment (g) must be OFF." },
+            { "id": "q_cb9", "type": "code", "mode": "bug", "language": "cpp", "title": "Missing semicolon in loop", "prompt": "Click the buggy line, then type the corrected line.", "code": "void loop() {\n  digitalWrite(2, HIGH)\n  delay(500);\n  digitalWrite(2, LOW);\n  delay(500);\n}", "bugLine": 2, "fix": "  digitalWrite(2, HIGH);", "explain": "Every statement in C/C++ must end with a semicolon." },
+            { "id": "q_cb10", "type": "code", "mode": "bug", "language": "cpp", "title": "I2C pins swapped", "prompt": "Click the buggy line, then type the corrected line.", "code": "#include <Wire.h>\n\nvoid setup() {\n  Wire.begin(22, 21);\n}", "bugLine": 4, "fix": "  Wire.begin(21, 22);", "explain": "Wire.begin(SDA, SCL) — SDA is GPIO 21, SCL is GPIO 22." }
+          ]
+        },
+        {
+          "id": "s_code_syntax",
+          "type": "code",
+          "title": "Fix the Syntax",
+          "questions": [
+            { "id": "q_cs1", "type": "code", "mode": "syntax", "language": "cpp", "title": "Missing semicolon", "prompt": "The code below has a syntax error. Type the corrected code.", "code": "void setup() {\n  pinMode(2, OUTPUT)\n}", "bugLine": null, "fix": "void setup() {\n  pinMode(2, OUTPUT);\n}", "explain": "Every statement needs a semicolon at the end." },
+            { "id": "q_cs2", "type": "code", "mode": "syntax", "language": "cpp", "title": "Missing closing brace", "prompt": "The code below has a syntax error. Type the corrected code.", "code": "void loop() {\n  digitalWrite(2, HIGH);\n  delay(500);", "bugLine": null, "fix": "void loop() {\n  digitalWrite(2, HIGH);\n  delay(500);\n}", "explain": "Every opening { needs a matching }." },
+            { "id": "q_cs3", "type": "code", "mode": "syntax", "language": "cpp", "title": "Missing include", "prompt": "The code uses Servo but doesn't include the library. Type the corrected code.", "code": "Servo myServo;\n\nvoid setup() {\n  myServo.attach(9);\n}", "bugLine": null, "fix": "#include <Servo.h>\nServo myServo;\n\nvoid setup() {\n  myServo.attach(9);\n}", "explain": "You must #include <Servo.h> before using the Servo class." },
+            { "id": "q_cs4", "type": "code", "mode": "syntax", "language": "cpp", "title": "Capitalization matters", "prompt": "The function name is misspelled. Type the corrected code.", "code": "void setup() {\n  pinmode(2, OUTPUT);\n}", "bugLine": null, "fix": "void setup() {\n  pinMode(2, OUTPUT);\n}", "explain": "Function names are case-sensitive. Use pinMode with capital M." },
+            { "id": "q_cs5", "type": "code", "mode": "syntax", "language": "cpp", "title": "Missing opening paren", "prompt": "Fix the syntax error in the digitalWrite call.", "code": "void loop() {\n  digitalWrite 2, HIGH);\n}", "bugLine": null, "fix": "void loop() {\n  digitalWrite(2, HIGH);\n}", "explain": "Every function call needs a matching pair of parentheses." },
+            { "id": "q_cs6", "type": "code", "mode": "syntax", "language": "cpp", "title": "Wrong assignment symbol for analog pin", "prompt": "The code uses = instead of == in a condition. Type the corrected code.", "code": "void loop() {\n  int v = analogRead(34);\n  if (v = 2000) {\n    digitalWrite(2, HIGH);\n  }\n}", "bugLine": null, "fix": "void loop() {\n  int v = analogRead(34);\n  if (v == 2000) {\n    digitalWrite(2, HIGH);\n  }\n}", "explain": "`=` assigns; `==` compares. Use `==` inside if." },
+            { "id": "q_cs7", "type": "code", "mode": "syntax", "language": "cpp", "title": "Extra semicolon after for", "prompt": "The for loop has an extra semicolon. Type the corrected code.", "code": "void loop() {\n  for (int i = 0; i < 10; i++); {\n    Serial.println(i);\n  }\n}", "bugLine": null, "fix": "void loop() {\n  for (int i = 0; i < 10; i++) {\n    Serial.println(i);\n  }\n}", "explain": "A stray semicolon after for() ends the loop early." },
+            { "id": "q_cs8", "type": "code", "mode": "syntax", "language": "cpp", "title": "Missing library include for LCD", "prompt": "The code uses LiquidCrystal_I2C but doesn't include the library. Type the corrected code.", "code": "LiquidCrystal_I2C lcd(0x27, 16, 2);\n\nvoid setup() {\n  lcd.init();\n}", "bugLine": null, "fix": "#include <Wire.h>\n#include <LiquidCrystal_I2C.h>\n\nLiquidCrystal_I2C lcd(0x27, 16, 2);\n\nvoid setup() {\n  lcd.init();\n}", "explain": "Include both Wire.h and LiquidCrystal_I2C.h." }
+          ]
+        },
+        {
+          "id": "s_code_arrange",
+          "type": "code",
+          "title": "Arrange the Lines",
+          "questions": [
+            { "id": "q_ca1", "type": "code", "mode": "arrange", "language": "cpp", "title": "Blink the LED", "prompt": "Put the lines in the correct order to blink an LED on pin 2.", "code": "void setup() {\n  pinMode(2, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(2, HIGH);\n  delay(500);\n  digitalWrite(2, LOW);\n  delay(500);\n}", "bugLine": null, "fix": "", "explain": "setup() runs once, then loop() repeats forever." },
+            { "id": "q_ca2", "type": "code", "mode": "arrange", "language": "cpp", "title": "Button controls LED", "prompt": "Put the lines in the correct order so a button on pin 4 controls an LED on pin 2.", "code": "#define BUTTON_PIN 4\n#define LED_PIN 2\n\nvoid setup() {\n  pinMode(BUTTON_PIN, INPUT);\n  pinMode(LED_PIN, OUTPUT);\n}\n\nvoid loop() {\n  int state = digitalRead(BUTTON_PIN);\n  if (state == HIGH) {\n    digitalWrite(LED_PIN, HIGH);\n  } else {\n    digitalWrite(LED_PIN, LOW);\n  }\n}", "bugLine": null, "fix": "", "explain": "Read the button, then conditionally drive the LED." },
+            { "id": "q_ca3", "type": "code", "mode": "arrange", "language": "cpp", "title": "Serial hello", "prompt": "Put the lines in the correct order to print 'Hello' every second.", "code": "void setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  Serial.println(\"Hello\");\n  delay(1000);\n}", "bugLine": null, "fix": "", "explain": "Serial.begin first, then print + delay." },
+            { "id": "q_ca4", "type": "code", "mode": "arrange", "language": "cpp", "title": "Ultrasonic distance reading", "prompt": "Put the lines in the correct order to read distance with an HC-SR04.", "code": "void loop() {\n  digitalWrite(TRIG, LOW);\n  delayMicroseconds(2);\n  digitalWrite(TRIG, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(TRIG, LOW);\n  long duration = pulseIn(ECHO, HIGH);\n  long distance = duration / 58;\n  Serial.println(distance);\n  delay(100);\n}", "bugLine": null, "fix": "", "explain": "Reset TRIG, pulse it, read ECHO, calculate distance." },
+            { "id": "q_ca5", "type": "code", "mode": "arrange", "language": "cpp", "title": "Servo sweep", "prompt": "Put the lines in the correct order to sweep a servo from 0° to 180°.", "code": "#include <Servo.h>\nServo myServo;\n\nvoid setup() {\n  myServo.attach(9);\n}\n\nvoid loop() {\n  for (int a = 0; a <= 180; a++) {\n    myServo.write(a);\n    delay(15);\n  }\n}", "bugLine": null, "fix": "", "explain": "attach the servo, then sweep with a for loop." },
+            { "id": "q_ca6", "type": "code", "mode": "arrange", "language": "cpp", "title": "LCD I2C setup and print", "prompt": "Put the lines in the correct order to initialize and print to an LCD I2C.", "code": "#include <Wire.h>\n#include <LiquidCrystal_I2C.h>\n\nLiquidCrystal_I2C lcd(0x27, 16, 2);\n\nvoid setup() {\n  lcd.init();\n  lcd.backlight();\n  lcd.setCursor(0, 0);\n  lcd.print(\"Hello, ESP32\");\n}\n\nvoid loop() {\n}", "bugLine": null, "fix": "", "explain": "Initialize, turn on backlight, move cursor, then print." },
+            { "id": "q_ca7", "type": "code", "mode": "arrange", "language": "cpp", "title": "LDR automatic light", "prompt": "Put the lines in the correct order for an LDR-based automatic light.", "code": "void setup() {\n  pinMode(LED_PIN, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int light = analogRead(LDR_PIN);\n  if (light < 500) {\n    digitalWrite(LED_PIN, HIGH);\n  } else {\n    digitalWrite(LED_PIN, LOW);\n  }\n  delay(100);\n}", "bugLine": null, "fix": "", "explain": "Read analog value, then turn LED on if it's dark." },
+            { "id": "q_ca8", "type": "code", "mode": "arrange", "language": "cpp", "title": "7-segment show '1' on Common Cathode", "prompt": "Put the lines in the correct order to display the digit '1' on a Common Cathode 7-segment display.", "code": "void setup() {\n  pinMode(SEG_A, OUTPUT);\n  pinMode(SEG_B, OUTPUT);\n  pinMode(SEG_C, OUTPUT);\n  pinMode(SEG_D, OUTPUT);\n  pinMode(SEG_E, OUTPUT);\n  pinMode(SEG_F, OUTPUT);\n  pinMode(SEG_G, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(SEG_A, LOW);\n  digitalWrite(SEG_B, HIGH);\n  digitalWrite(SEG_C, HIGH);\n  digitalWrite(SEG_D, LOW);\n  digitalWrite(SEG_E, LOW);\n  digitalWrite(SEG_F, LOW);\n  digitalWrite(SEG_G, LOW);\n  delay(1000);\n}", "bugLine": null, "fix": "", "explain": "Set all segments as OUTPUT in setup, then turn on only b and c for '1'." }
+          ]
+        }
+      ]
+    }
+  ]
+}
