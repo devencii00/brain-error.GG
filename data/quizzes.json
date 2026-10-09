@@ -698,6 +698,484 @@
           ]
         }
       ]
+    }, 
+        {
+      "id": "quiz_core_activities",
+      "title": "Core Activities — Hands-On Code Review",
+      "subject": "Programming",
+      "description": "Review the actual ESP32 activity outputs: push buttons, potentiometers, LDR, ultrasonic, 7-segment, RGB colors, servo sweep, and Blynk IoT.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": false,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 10, "enum": 25, "code": 120 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_core_fill",
+          "type": "code",
+          "title": "Fill in the Blanks",
+          "questions": [
+            {
+              "id": "q_core_cf1",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "Push Button with Internal Pull-Up",
+              "prompt": "Complete the setup so the button uses the ESP32's internal pull-up resistor.",
+              "code": "int pb = 22;\nint led = 26;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(pb, [[INPUT_PULLUP]]);\n  pinMode(led, [[OUTPUT]]);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "INPUT_PULLUP enables the internal resistor — button reads HIGH when not pressed."
+            },
+            {
+              "id": "q_core_cf2",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "Reading Button State",
+              "prompt": "Complete the loop so it reads the button and prints the value.",
+              "code": "void loop() {\n  int pb_value = [[digitalRead]](pb);\n  Serial.print(\"Push Button Data: \");\n  Serial.[[println]](pb_value);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "digitalRead reads a pin's HIGH/LOW state."
+            },
+            {
+              "id": "q_core_cf3",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "Potentiometer Analog Read",
+              "prompt": "Complete the analog reading of a potentiometer on pin 34.",
+              "code": "int potentiometer = 34;\n\nvoid setup() {\n  pinMode(potentiometer, [[INPUT]]);\n  Serial.begin([[115200]]);\n}\n\nvoid loop() {\n  int pot_value = [[analogRead]](potentiometer);\n  Serial.println(pot_value);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "analogRead returns 0–4095 on ESP32 (12-bit ADC)."
+            },
+            {
+              "id": "q_core_cf4",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "LDR Reading",
+              "prompt": "Complete the code to read an LDR on pin 33.",
+              "code": "int ldr = 33;\n\nvoid setup() {\n  pinMode(ldr, [[INPUT]]);\n  Serial.begin(115200);\n}\n\nvoid loop() {\n  int ldr_value = [[analogRead]](ldr);\n  Serial.print(\"Light Dependent Resistor Value: \");\n  Serial.println(ldr_value);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "LDR behaves like a variable resistor — analogRead gives the voltage across it."
+            },
+            {
+              "id": "q_core_cf5",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "Ultrasonic Distance Formula",
+              "prompt": "Complete the distance calculation for the HC-SR04.",
+              "code": "long duration = pulseIn(echo, [[HIGH]]);\nlong distance = duration [[*]] 0.0343 [[/]] 2;\nSerial.print(\"Distance (cm): \");\nSerial.println(distance);",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Speed of sound in cm/µs ≈ 0.0343. Divide by 2 for the round trip."
+            },
+            {
+              "id": "q_core_cf6",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "7-Segment Anode Display — Setup",
+              "prompt": "Complete the pin setup for a 7-segment display (common anode).",
+              "code": "int a = 26;\nint b = 27;\nint c = 13;\n\nvoid setup() {\n  pinMode(a, [[OUTPUT]]);\n  pinMode(b, OUTPUT);\n  pinMode(c, [[OUTPUT]]);\n}\n\nvoid loop() {\n  digitalWrite(a, [[HIGH]]);\n  digitalWrite(b, [[LOW]]);\n  digitalWrite(c, LOW);\n  delay(1000);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Common anode: LOW turns the segment ON. HIGH turns it OFF."
+            },
+            {
+              "id": "q_core_cf7",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "RGB PWM Setup for ESP32 Core v3.x",
+              "prompt": "Complete the LEDC setup for PWM on the ESP32.",
+              "code": "int blue = 27;\nint green = 26;\nint red = 25;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(red, OUTPUT);\n  pinMode(green, OUTPUT);\n  pinMode(blue, OUTPUT);\n\n  ledcAttach(red, [[5000]], [[8]]);\n  ledcAttach(green, 5000, 8);\n  ledcAttach(blue, [[5000]], 8);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "5000 Hz frequency, 8-bit resolution (0–255) for RGB brightness."
+            },
+            {
+              "id": "q_core_cf8",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "Setting RGB Color with ledcWrite",
+              "prompt": "Complete the code to show PURPLE using ledcWrite.",
+              "code": "void loop() {\n  ledcWrite(red, [[180]]);\n  ledcWrite(green, [[0]]);\n  ledcWrite(blue, [[255]]);\n  delay(30);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Purple = high red + full blue, no green."
+            },
+            {
+              "id": "q_core_cf9",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "Blynk WiFi Credentials",
+              "prompt": "Complete the WiFi credentials and Blynk setup.",
+              "code": "char ssid[] = [[\"gksovkw\"]];\nchar pass[] = [[\"123456789\"]];\n\nvoid setup() {\n  Serial.begin(115200);\n  Blynk.[[begin]](BLYNK_AUTH_TOKEN, ssid, pass);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Blynk.begin() connects to WiFi and the Blynk cloud using the auth token."
+            },
+            {
+              "id": "q_core_cf10",
+              "type": "code",
+              "mode": "blank",
+              "language": "cpp",
+              "title": "Blynk Virtual Pin Handler",
+              "prompt": "Complete the Blynk virtual pin handler for V1.",
+              "code": "BLYNK_WRITE([[V1]]) {\n  int value = param.[[asInt]]();\n  if (value != 0) {\n    setSkyBlue();\n  } else {\n    [[turnOffRGB]]();\n  }\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "BLYNK_WRITE runs whenever the app writes to that virtual pin."
+            }
+          ]
+        },
+        {
+          "id": "s_core_bug",
+          "type": "code",
+          "title": "Find the Bug",
+          "questions": [
+            {
+              "id": "q_core_cb1",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "Missing Serial.begin()",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "int ldr = 33;\n\nvoid setup() {\n  pinMode(ldr, INPUT);\n}\n\nvoid loop() {\n  int v = analogRead(ldr);\n  Serial.println(v);\n}",
+              "bugLine": 4,
+              "fix": "  Serial.begin(115200);",
+              "explain": "You must call Serial.begin() in setup() before using Serial.println()."
+            },
+            {
+              "id": "q_core_cb2",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "Wrong pin mode for LED",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "int pb = 22;\nint led = 26;\n\nvoid setup() {\n  pinMode(pb, INPUT_PULLUP);\n  pinMode(led, INPUT);\n}",
+              "bugLine": 6,
+              "fix": "  pinMode(led, OUTPUT);",
+              "explain": "LEDs need OUTPUT mode to be driven."
+            },
+            {
+              "id": "q_core_cb3",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "TRIG not returned to LOW",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "digitalWrite(trig, LOW);\ndelayMicroseconds(2);\ndigitalWrite(trig, HIGH);\ndelayMicroseconds(10);",
+              "bugLine": 5,
+              "fix": "digitalWrite(trig, LOW);",
+              "explain": "TRIG must return LOW after the pulse, otherwise no new reading can start."
+            },
+            {
+              "id": "q_core_cb4",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "Wrong comparison for push button",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "void loop(){\n  int pb_value = digitalRead(pb);\n  if (pb_value = HIGH){\n    digitalWrite(led, HIGH);\n  } else {\n    digitalWrite(led, LOW);\n  }\n}",
+              "bugLine": 3,
+              "fix": "  if (pb_value == HIGH){",
+              "explain": "`=` assigns; `==` compares."
+            },
+            {
+              "id": "q_core_cb5",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "RGB value out of PWM range",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "void setup() {\n  ledcAttach(red, 5000, 8);\n}\n\nvoid loop() {\n  ledcWrite(red, 300);\n  delay(30);\n}",
+              "bugLine": 6,
+              "fix": "  ledcWrite(red, 255);",
+              "explain": "8-bit PWM only accepts values 0–255."
+            },
+            {
+              "id": "q_core_cb6",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "Missing pulseIn state",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "digitalWrite(trig, LOW);\ndelayMicroseconds(2);\ndigitalWrite(trig, HIGH);\ndelayMicroseconds(10);\ndigitalWrite(trig, LOW);\n\nlong duration = pulseIn(echo, LOW);",
+              "bugLine": 7,
+              "fix": "long duration = pulseIn(echo, HIGH);",
+              "explain": "The ECHO pin goes HIGH for the duration of the return pulse."
+            },
+            {
+              "id": "q_core_cb7",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "7-segment polarity wrong for anode",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "// Common ANODE — show digit 1: segments b and c ON\nvoid showOne() {\n  digitalWrite(a, LOW);\n  digitalWrite(b, HIGH);\n  digitalWrite(c, HIGH);\n  digitalWrite(d, LOW);\n  digitalWrite(e, LOW);\n  digitalWrite(f, LOW);\n  digitalWrite(g, LOW);\n}",
+              "bugLine": 4,
+              "fix": "  digitalWrite(b, LOW);",
+              "explain": "Common ANODE: LOW turns a segment ON. HIGH keeps it off."
+            },
+            {
+              "id": "q_core_cb8",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "Blynk not running in loop",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "void setup() {\n  Serial.begin(115200);\n  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);\n}\n\nvoid loop() {\n  delay(1000);\n}",
+              "bugLine": 7,
+              "fix": "  Blynk.run();",
+              "explain": "Blynk.run() must be called every loop to process virtual pin events."
+            },
+            {
+              "id": "q_core_cb9",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "Wrong serial print",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "void loop() {\n  int pot_value = analogRead(potentiometer);\n  Serial.print(\"Value: \");\n  Serial.print(pot_value);\n}",
+              "bugLine": 4,
+              "fix": "  Serial.println(pot_value);",
+              "explain": "println adds a newline so values don't run together on the serial monitor."
+            },
+            {
+              "id": "q_core_cb10",
+              "type": "code",
+              "mode": "bug",
+              "language": "cpp",
+              "title": "Analog vs digital on LDR",
+              "prompt": "Click the buggy line, then type the corrected line.",
+              "code": "void loop() {\n  int ldr_value = digitalRead(ldr);\n  Serial.println(ldr_value);\n  delay(100);\n}",
+              "bugLine": 2,
+              "fix": "  int ldr_value = analogRead(ldr);",
+              "explain": "LDRs give a continuous analog signal — use analogRead, not digitalRead."
+            }
+          ]
+        },
+        {
+          "id": "s_core_syntax",
+          "type": "code",
+          "title": "Fix the Syntax",
+          "questions": [
+            {
+              "id": "q_core_cs1",
+              "type": "code",
+              "mode": "syntax",
+              "language": "cpp",
+              "title": "Missing semicolon",
+              "prompt": "The code below has a syntax error. Type the corrected code.",
+              "code": "void setup() {\n  Serial.begin(115200)\n  pinMode(led, OUTPUT);\n}",
+              "bugLine": null,
+              "fix": "void setup() {\n  Serial.begin(115200);\n  pinMode(led, OUTPUT);\n}",
+              "explain": "Every statement needs a semicolon."
+            },
+            {
+              "id": "q_core_cs2",
+              "type": "code",
+              "mode": "syntax",
+              "language": "cpp",
+              "title": "Missing closing brace",
+              "prompt": "The code below has a syntax error. Type the corrected code.",
+              "code": "void loop() {\n  int v = analogRead(ldr);\n  Serial.println(v);\n  delay(100);",
+              "bugLine": null,
+              "fix": "void loop() {\n  int v = analogRead(ldr);\n  Serial.println(v);\n  delay(100);\n}",
+              "explain": "Every opening { needs a matching }."
+            },
+            {
+              "id": "q_core_cs3",
+              "type": "code",
+              "mode": "syntax",
+              "language": "cpp",
+              "title": "Case-sensitive function name",
+              "prompt": "Fix the syntax error in the pin mode call.",
+              "code": "void setup() {\n  pinmode(pb, INPUT_PULLUP);\n}",
+              "bugLine": null,
+              "fix": "void setup() {\n  pinMode(pb, INPUT_PULLUP);\n}",
+              "explain": "Arduino/ESP32 functions are case-sensitive. Use pinMode with capital M."
+            },
+            {
+              "id": "q_core_cs4",
+              "type": "code",
+              "mode": "syntax",
+              "language": "cpp",
+              "title": "Missing delayMicroseconds arguments",
+              "prompt": "The delayMicroseconds call is malformed. Type the corrected code.",
+              "code": "digitalWrite(trig, LOW);\ndelayMicroseconds;",
+              "bugLine": null,
+              "fix": "digitalWrite(trig, LOW);\ndelayMicroseconds(2);",
+              "explain": "delayMicroseconds() needs an argument (number of microseconds)."
+            },
+            {
+              "id": "q_core_cs5",
+              "type": "code",
+              "mode": "syntax",
+              "language": "cpp",
+              "title": "Missing include for Blynk",
+              "prompt": "The code uses Blynk but doesn't include the library. Type the corrected code.",
+              "code": "#define BLYNK_TEMPLATE_ID \"TMPL6NYIMT0jZ\"\n\nchar ssid[] = \"gksovkw\";\n\nvoid setup() {\n  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);\n}",
+              "bugLine": null,
+              "fix": "#define BLYNK_TEMPLATE_ID \"TMPL6NYIMT0jZ\"\n\n#include <WiFi.h>\n#include <BlynkSimpleEsp32.h>\n\nchar ssid[] = \"gksovkw\";\n\nvoid setup() {\n  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);\n}",
+              "explain": "You must #include <WiFi.h> and <BlynkSimpleEsp32.h> before using Blynk."
+            },
+            {
+              "id": "q_core_cs6",
+              "type": "code",
+              "mode": "syntax",
+              "language": "cpp",
+              "title": "Comparison vs assignment",
+              "prompt": "The code uses = instead of == in an if. Type the corrected code.",
+              "code": "void loop() {\n  int state = digitalRead(pb);\n  if (state = HIGH) {\n    digitalWrite(led, HIGH);\n  }\n}",
+              "bugLine": null,
+              "fix": "void loop() {\n  int state = digitalRead(pb);\n  if (state == HIGH) {\n    digitalWrite(led, HIGH);\n  }\n}",
+              "explain": "`=` assigns; `==` compares. Use `==` inside if."
+            },
+            {
+              "id": "q_core_cs7",
+              "type": "code",
+              "mode": "syntax",
+              "language": "cpp",
+              "title": "Missing #include for Wire",
+              "prompt": "The code uses ledcAttach but the ESP32 core needs the right setup. Add the required include if missing.",
+              "code": "int red = 25;\n\nvoid setup() {\n  ledcAttach(red, 5000, 8);\n}",
+              "bugLine": null,
+              "fix": "// No include needed — ledcAttach is part of the ESP32 Arduino core\nint red = 25;\n\nvoid setup() {\n  ledcAttach(red, 5000, 8);\n}",
+              "explain": "On ESP32 Arduino core v3.x, ledcAttach is built-in — no include required."
+            },
+            {
+              "id": "q_core_cs8",
+              "type": "code",
+              "mode": "syntax",
+              "language": "cpp",
+              "title": "Missing argument in delay",
+              "prompt": "The delay call is missing its value. Type the corrected code.",
+              "code": "void loop() {\n  Serial.println(\"Hello\");\n  delay();\n}",
+              "bugLine": null,
+              "fix": "void loop() {\n  Serial.println(\"Hello\");\n  delay(1000);\n}",
+              "explain": "delay() needs a millisecond value. 1000 ms = 1 second."
+            }
+          ]
+        },
+        {
+          "id": "s_core_arrange",
+          "type": "code",
+          "title": "Arrange the Lines",
+          "questions": [
+            {
+              "id": "q_core_ca1",
+              "type": "code",
+              "mode": "arrange",
+              "language": "cpp",
+              "title": "Push button toggles LED",
+              "prompt": "Arrange the lines to make the push button control the LED.",
+              "code": "int pb = 22;\nint led = 26;\n\nvoid setup() {\n  pinMode(pb, INPUT_PULLUP);\n  pinMode(led, OUTPUT);\n}\n\nvoid loop() {\n  int v = digitalRead(pb);\n  if (v == HIGH) {\n    digitalWrite(led, HIGH);\n  } else {\n    digitalWrite(led, LOW);\n  }\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "setup() configures pins, loop() reads and reacts."
+            },
+            {
+              "id": "q_core_ca2",
+              "type": "code",
+              "mode": "arrange",
+              "language": "cpp",
+              "title": "Ultrasonic distance",
+              "prompt": "Arrange the lines to read distance from the HC-SR04.",
+              "code": "int trig = 27;\nint echo = 14;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(trig, OUTPUT);\n  pinMode(echo, INPUT);\n}\n\nvoid loop() {\n  digitalWrite(trig, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trig, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trig, LOW);\n  long duration = pulseIn(echo, HIGH);\n  long distance = duration * 0.0343 / 2;\n  Serial.println(distance);\n  delay(100);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Trigger, read, calculate, print, repeat."
+            },
+            {
+              "id": "q_core_ca3",
+              "type": "code",
+              "mode": "arrange",
+              "language": "cpp",
+              "title": "LDR to 3 ascending LEDs",
+              "prompt": "Arrange the lines so the LED bar reacts to light level.",
+              "code": "int ldr = 33;\nint led1 = 13;\nint led2 = 12;\nint led3 = 27;\n\nvoid setup() {\n  pinMode(ldr, INPUT);\n  pinMode(led1, OUTPUT);\n  pinMode(led2, OUTPUT);\n  pinMode(led3, OUTPUT);\n}\n\nvoid loop() {\n  int v = analogRead(ldr);\n  if (v <= 40) {\n    digitalWrite(led1, LOW);\n    digitalWrite(led2, LOW);\n    digitalWrite(led3, LOW);\n  }\n  if (v >= 41 && v <= 199) {\n    digitalWrite(led1, HIGH);\n  }\n  if (v >= 200 && v <= 599) {\n    digitalWrite(led1, HIGH);\n    digitalWrite(led2, HIGH);\n  }\n  if (v >= 600) {\n    digitalWrite(led1, HIGH);\n    digitalWrite(led2, HIGH);\n    digitalWrite(led3, HIGH);\n  }\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Read LDR, then compare thresholds to drive each LED."
+            },
+            {
+              "id": "q_core_ca4",
+              "type": "code",
+              "mode": "arrange",
+              "language": "cpp",
+              "title": "Potentiometer to RGB color",
+              "prompt": "Arrange the lines so the potentiometer controls the RGB color.",
+              "code": "int potentiometer = 34;\nint blue = 27;\nint green = 26;\nint red = 25;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(potentiometer, INPUT);\n  pinMode(red, OUTPUT);\n  pinMode(green, OUTPUT);\n  pinMode(blue, OUTPUT);\n  ledcAttach(red, 5000, 8);\n  ledcAttach(green, 5000, 8);\n  ledcAttach(blue, 5000, 8);\n}\n\nvoid loop() {\n  int v = analogRead(potentiometer);\n  if (v <= 1365) {\n    ledcWrite(red, 255);\n    ledcWrite(green, 0);\n    ledcWrite(blue, 150);\n  } else if (v <= 2730) {\n    ledcWrite(red, 180);\n    ledcWrite(green, 0);\n    ledcWrite(blue, 255);\n  } else {\n    ledcWrite(red, 0);\n    ledcWrite(green, 180);\n    ledcWrite(blue, 255);\n  }\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Setup PWM channels, then map potentiometer to color ranges."
+            },
+            {
+              "id": "q_core_ca5",
+              "type": "code",
+              "mode": "arrange",
+              "language": "cpp",
+              "title": "Blynk RGB controller",
+              "prompt": "Arrange the lines for a Blynk RGB controller.",
+              "code": "#include <WiFi.h>\n#include <BlynkSimpleEsp32.h>\n\nint redPin = 27;\nint greenPin = 26;\nint bluePin = 25;\n\nBLYNK_WRITE(V1) {\n  int v = param.asInt();\n  if (v != 0) {\n    setSkyBlue();\n  }\n}\n\nvoid setSkyBlue() {\n  analogWrite(redPin, 0);\n  analogWrite(greenPin, 0);\n  analogWrite(bluePin, 255);\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(redPin, OUTPUT);\n  pinMode(greenPin, OUTPUT);\n  pinMode(bluePin, OUTPUT);\n  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);\n}\n\nvoid loop() {\n  Blynk.run();\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Includes → colors → handlers → setup → loop with Blynk.run()."
+            },
+            {
+              "id": "q_core_ca6",
+              "type": "code",
+              "mode": "arrange",
+              "language": "cpp",
+              "title": "7-segment digit sequence",
+              "prompt": "Arrange the lines to cycle through two digits.",
+              "code": "int a = 26;\nint b = 27;\nint c = 13;\nint d = 12;\nint e = 14;\nint f = 25;\nint g = 33;\n\nvoid setup() {\n  pinMode(a, OUTPUT);\n  pinMode(b, OUTPUT);\n  pinMode(c, OUTPUT);\n  pinMode(d, OUTPUT);\n  pinMode(e, OUTPUT);\n  pinMode(f, OUTPUT);\n  pinMode(g, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(a, HIGH);\n  digitalWrite(b, LOW);\n  digitalWrite(c, LOW);\n  digitalWrite(d, HIGH);\n  digitalWrite(e, HIGH);\n  digitalWrite(f, HIGH);\n  digitalWrite(g, HIGH);\n  delay(1000);\n  digitalWrite(a, LOW);\n  digitalWrite(b, LOW);\n  digitalWrite(c, HIGH);\n  digitalWrite(d, LOW);\n  digitalWrite(e, LOW);\n  digitalWrite(f, HIGH);\n  digitalWrite(g, LOW);\n  delay(1000);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Set pins as OUTPUT in setup, then write segments in sequence."
+            },
+            {
+              "id": "q_core_ca7",
+              "type": "code",
+              "mode": "arrange",
+              "language": "cpp",
+              "title": "Ultrasonic + LED alert",
+              "prompt": "Arrange the lines so the LED alerts when an object is close.",
+              "code": "int trig = 5;\nint echo = 21;\nint ledPin = 27;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(trig, OUTPUT);\n  pinMode(echo, INPUT);\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(trig, LOW);\n  delayMicroseconds(2);\n  digitalWrite(trig, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(trig, LOW);\n  long duration = pulseIn(echo, HIGH);\n  long distance = duration * 0.0343 / 2;\n  if (distance > 2 && distance < 50) {\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n  delay(60);\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Measure distance, then conditionally drive LED."
+            },
+            {
+              "id": "q_core_ca8",
+              "type": "code",
+              "mode": "arrange",
+              "language": "cpp",
+              "title": "Blynk RGB with auto-exclusive buttons",
+              "prompt": "Arrange the lines so selecting one color auto-turns off the others.",
+              "code": "BLYNK_WRITE(V1) {\n  int v = param.asInt();\n  if (v != 0) {\n    Blynk.virtualWrite(V2, 0);\n    Blynk.virtualWrite(V3, 0);\n    setSkyBlue();\n  } else {\n    turnOffRGB();\n  }\n}\n\nBLYNK_WRITE(V2) {\n  int v = param.asInt();\n  if (v != 0) {\n    Blynk.virtualWrite(V1, 0);\n    Blynk.virtualWrite(V3, 0);\n    setSkyGreen();\n  } else {\n    turnOffRGB();\n  }\n}\n\nBLYNK_WRITE(V3) {\n  int v = param.asInt();\n  if (v != 0) {\n    Blynk.virtualWrite(V1, 0);\n    Blynk.virtualWrite(V2, 0);\n    setSkyPink();\n  } else {\n    turnOffRGB();\n  }\n}",
+              "bugLine": null,
+              "fix": "",
+              "explain": "Each handler resets the other virtual pins to keep only one active."
+            }
+          ]
+        }
+      ]
     }
   ]
 }
