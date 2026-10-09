@@ -165,6 +165,10 @@ function themeBtn() {
   const dark = document.documentElement.getAttribute('data-theme') === 'dark';
   return `<button class="btn icon-btn ghost" data-act="theme" aria-label="Toggle theme" title="Toggle theme">${ic(dark ? 'sun' : 'moon')}</button>`;
 }
+function soundBtn() {
+  const on = typeof Sound !== 'undefined' && Sound.isEnabled();
+  return `<button class="btn icon-btn ghost" data-act="sound" aria-label="Toggle sound" title="Toggle sound">${on ? '🔊' : '🔇'}</button>`;
+}
 const logo = `<a class="logo" href="#/"><span class="logo-mark">{!}</span>BrainError</a>`;
 
 function shell(inner, active = '') {
@@ -173,8 +177,9 @@ function shell(inner, active = '') {
     ? `<a href="#/manage" class="${active === 'manage' ? 'active' : ''}">Manage quizzes</a>`
     : `<a href="#/dashboard" class="${active === 'dashboard' ? 'active' : ''}">Quizzes</a><a href="#/history" class="${active === 'history' ? 'active' : ''}">My scores</a>`;
   app.innerHTML = `
-    <header class="nav"><div class="container nav-in">
+      <header class="nav"><div class="container nav-in">
       ${logo}<nav class="nav-links" aria-label="Main">${links}</nav><span class="spacer"></span>
+      ${soundBtn()}
       ${themeBtn()}
       ${u ? `<div class="chip-user"><span class="avatar">${esc(u.name[0] || '?').toUpperCase()}</span><span class="nm">${esc(u.name)}<small>${u.role === 'admin' ? 'Admin' : u.guest ? 'Guest' : 'Student'}</small></span>
         <button class="btn icon-btn sm ghost" data-act="logout" aria-label="Log out" title="Log out">${ic('logout')}</button></div>` : ''}
@@ -500,8 +505,11 @@ function startQuestionTimer() {
   P.timerHandle = setInterval(() => {
     if (!S.play) return clearPlayTimer();
     P.timeLeft--;
+    // Tick sound in the last 5 seconds
+    if (P.timeLeft > 0 && P.timeLeft <= 5 && typeof Sound !== 'undefined') Sound.play('tick');
     if (P.timeLeft <= 0) {
       clearPlayTimer();
+      if (typeof Sound !== 'undefined') Sound.play('timeup');
       // auto-advance this question
       const secNow = P.quiz.sections[P.idx];
       const last = P.qIdx[secNow.id] >= secNow.questions.length - 1;
@@ -573,17 +581,24 @@ function playView(id) {
   const isLastQuestion = curIdx === totalQ - 1;
   const timerBadge = (P.timerOn && P.phase === 'answer') ? `<span id="timer-display"></span>` : '';
 
-  let body;
+   let body;
   if (P.phase === 'answer') {
     // Only the current question
     body = `<div class="q-progress muted">Question <b>${curIdx + 1}</b> of <b>${totalQ}</b> in this part</div>`
          + questionHTML(curQ, curIdx + 1);
   } else {
+    // Play a section reveal sound (only once per section)
+    if (typeof Sound !== 'undefined' && P._lastRevealSound !== sec.id) {
+      P._lastRevealSound = sec.id;
+      const ratio = P.graded[sec.id].max > 0 ? P.graded[sec.id].got / P.graded[sec.id].max : 0;
+      if (ratio === 1) Sound.play('success');
+      else if (ratio === 0) Sound.play('error');
+      else Sound.play('click');
+    }
     // Reveal phase: show all questions with reveals
     body = `<div class="card flat" style="margin-bottom:16px"><b>${esc(sec.title)}</b> | you scored <b>${P.graded[sec.id].got}/${P.graded[sec.id].max}</b> in this part.</div>`
          + sec.questions.map((q, i) => revealHTML(q, P.answers[q.id], P.graded[q.id], i + 1)).join('');
   }
-
   let footer;
   if (P.phase === 'answer') {
     footer = `
@@ -682,6 +697,7 @@ function verdictHTML(g) {
 function revealHTML(q, a, g, n) {
   a = a || {}; g = g || grade(q, a);
   let body = '';
+  
   if (q.type === 'mcq') {
     body = `<div class="q-text">${esc(q.q)}</div><div class="choices">${q.choices.map((c, i) => `<div class="choice static ${i === q.answer ? 'ok' : a.v === i ? 'no' : ''}"><span class="key">${String.fromCharCode(65 + i)}</span><span>${esc(c)}</span></div>`).join('')}</div>${a.v === undefined ? '<p class="hint" style="margin-top:10px">No answer given.</p>' : ''}`;
   } else if (q.type === 'ident') {
@@ -729,6 +745,7 @@ function advance() {
 function finishGame() {
   const P = S.play; const u = DB.session();
   clearPlayTimer();
+  if (typeof Sound !== 'undefined') Sound.play('complete');
   const sections = P.quiz.sections.map((s) => ({ title: s.title, type: s.type, ...P.graded[s.id] }));
   P.total = { got: sections.reduce((t, s) => t + s.got, 0), max: sections.reduce((t, s) => t + s.max, 0) };
   P.phase = 'done';
@@ -1004,6 +1021,12 @@ const actions = {
     document.documentElement.setAttribute('data-theme', t); try { localStorage.setItem('be_theme', t); } catch {}
     $$('[data-act="theme"]').forEach((b) => (b.innerHTML = ic(t === 'dark' ? 'sun' : 'moon')));
   },
+  sound() {
+    if (typeof Sound === 'undefined') return;
+    const on = Sound.toggle();
+    $$('[data-act="sound"]').forEach((b) => (b.textContent = on ? '🔊' : '🔇'));
+    toast(on ? 'Sound on' : 'Sound off', on ? 'ok' : 'info');
+  },
   logout() {
   confirmBox(
     'You will be logged out. Your progress in unfinished quizzes will be lost.',
@@ -1127,11 +1150,23 @@ Answer: 10.0.0.0/8; 172.16.0.0/12; 192.168.0.0/16</textarea>
 };
 
 document.addEventListener('click', (e) => {
-  const t = e.target.closest('[data-act]'); if (t && actions[t.dataset.act]) { actions[t.dataset.act](t, e); return; }
+  const t = e.target.closest('[data-act]');
+  // Play click sound for any action button (but not when sound would be jarring)
+  if (t && Sound) {
+    const silent = t.dataset.act === 'theme'; // theme toggle has its own feel
+    if (!silent) Sound.play('click');
+  }
+  if (t && actions[t.dataset.act]) { actions[t.dataset.act](t, e); return; }
   const line = e.target.closest('[data-bug] .code-line.pick');
-  if (line) { $$('.code-line.sel', line.parentNode).forEach((x) => x.classList.remove('sel')); line.classList.add('sel'); }
+  if (line) {
+    if (Sound) Sound.play('click');
+    $$('.code-line.sel', line.parentNode).forEach((x) => x.classList.remove('sel'));
+    line.classList.add('sel');
+  }
 });
 
+// Unlock Web Audio on the first interaction anywhere
+document.addEventListener('pointerdown', () => { if (Sound) Sound.unlock(); }, { once: true });
 document.addEventListener('submit', (e) => {
   const f = e.target.closest('form[data-form]'); if (!f) return; e.preventDefault();
   const d = Object.fromEntries(new FormData(f)); const err = $('#auth-err');
