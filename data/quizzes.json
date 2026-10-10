@@ -1174,7 +1174,143 @@
               "explain": "Each handler resets the other virtual pins to keep only one active."
             }
           ]
+        },     {
+      "id": "quiz_units_1_10_ident_enum",
+      "title": "Units 1–10 — Identification & Enumeration Review",
+      "subject": "IoT",
+      "description": "Focused reviewer with only identification and enumeration questions across all 10 units.",
+      "settings": {
+        "reveal": true,
+        "shuffleQuestions": false,
+        "shuffleChoices": false,
+        "timerEnabled": false,
+        "timers": { "mcq": 15, "ident": 15, "enum": 30, "code": 60 }
+      },
+      "createdBy": "seed",
+      "createdAt": 1728518400000,
+      "updatedAt": 1728518400000,
+      "sections": [
+        {
+          "id": "s_units_1_10_ident",
+          "type": "ident",
+          "title": "Identification",
+          "questions": [
+            { "id": "q_ie_id1", "type": "ident", "q": "Electronic component that limits or controls the flow of electric current.", "answer": "Resistor", "alts": ["resistors"], "explain": "Unit 1." },
+            { "id": "q_ie_id2", "type": "ident", "q": "Component whose resistance changes with temperature.", "answer": "Thermistor", "alts": ["thermal resistor"], "explain": "Unit 1." },
+            { "id": "q_ie_id3", "type": "ident", "q": "Component that temporarily stores electrical energy in a static electric field.", "answer": "Capacitor", "alts": ["capacitors"], "explain": "Unit 1." },
+            { "id": "q_ie_id4", "type": "ident", "q": "A solderless board used to build and test circuits without soldering.", "answer": "Breadboard", "alts": ["solderless breadboard", "bread board"], "explain": "Unit 1." },
+            { "id": "q_ie_id5", "type": "ident", "q": "The two long horizontal rows on a breadboard marked with red and blue lines.", "answer": "Power Rails", "alts": ["power rail", "rails", "power rail lines"], "explain": "Unit 1." },
+            { "id": "q_ie_id6", "type": "ident", "q": "Electronic component that emits light when current passes through it.", "answer": "LED", "alts": ["Light Emitting Diode"], "explain": "Unit 1." },
+            { "id": "q_ie_id7", "type": "ident", "q": "Type of circuit where all components share a single current path.", "answer": "Series Circuit", "alts": ["series", "series connection"], "explain": "Unit 1." },
+            { "id": "q_ie_id8", "type": "ident", "q": "Type of circuit that has two or more paths for current to flow.", "answer": "Parallel Circuit", "alts": ["parallel", "parallel connection"], "explain": "Unit 1." },
+            { "id": "q_ie_id9", "type": "ident", "q": "Flexible wires used to connect components on a breadboard.", "answer": "Jumper Wires", "alts": ["jumper wire", "jumpers", "dupont wires"], "explain": "Unit 1." },
+            { "id": "q_ie_id10", "type": "ident", "q": "The unit of resistance.", "answer": "Ohm", "alts": ["ohms", "Ω"], "explain": "Unit 1." },
+
+            { "id": "q_ie_id11", "type": "ident", "q": "Vast network of physical objects embedded with sensors, software, and network connectivity.", "answer": "Internet of Things", "alts": ["IoT"], "explain": "Unit 2." },
+            { "id": "q_ie_id12", "type": "ident", "q": "Microcontroller developed by Espressif with built-in Wi-Fi and Bluetooth.", "answer": "ESP32", "alts": ["Espressif ESP32"], "explain": "Unit 2." },
+            { "id": "q_ie_id13", "type": "ident", "q": "Software used to write, compile, and upload code to the ESP32.", "answer": "Arduino IDE", "alts": ["Arduino", "Arduino Software"], "explain": "Unit 2." },
+            { "id": "q_ie_id14", "type": "ident", "q": "IoT layer that collects data from the environment.", "answer": "Sensors", "alts": ["Sensors/Devices", "Sensor Layer", "Devices"], "explain": "Unit 2." },
+            { "id": "q_ie_id15", "type": "ident", "q": "IoT layer that provides the path for data to reach the cloud.", "answer": "Connectivity", "alts": ["Connectivity Layer"], "explain": "Unit 2." },
+            { "id": "q_ie_id16", "type": "ident", "q": "IoT layer where mobile apps or dashboards let users view data and send commands.", "answer": "User Interface", "alts": ["UI", "Application Layer"], "explain": "Unit 2." },
+            { "id": "q_ie_id17", "type": "ident", "q": "Function that checks code for errors in the Arduino IDE.", "answer": "Verify", "alts": ["Compile", "Verify/Compile"], "explain": "Unit 2." },
+            { "id": "q_ie_id18", "type": "ident", "q": "Window in the Arduino IDE that displays serial information from the board.", "answer": "Serial Monitor", "alts": ["Serial"], "explain": "Unit 2." },
+
+            { "id": "q_ie_id19", "type": "ident", "q": "Acronym for General-Purpose Input/Output.", "answer": "GPIO", "alts": ["GPIO pins"], "explain": "Unit 3." },
+            { "id": "q_ie_id20", "type": "ident", "q": "Function that sets a GPIO pin as INPUT or OUTPUT.", "answer": "pinMode", "alts": ["pinMode()"], "explain": "Unit 3." },
+            { "id": "q_ie_id21", "type": "ident", "q": "Function that reads the state of an input pin.", "answer": "digitalRead", "alts": ["digitalRead()"], "explain": "Unit 3." },
+            { "id": "q_ie_id22", "type": "ident", "q": "Function that controls the state of an output pin.", "answer": "digitalWrite", "alts": ["digitalWrite()"], "explain": "Unit 3." },
+            { "id": "q_ie_id23", "type": "ident", "q": "Digital signal state that means ON or Active.", "answer": "HIGH", "alts": ["1"], "explain": "Unit 3." },
+            { "id": "q_ie_id24", "type": "ident", "q": "Digital signal state that means OFF or Inactive.", "answer": "LOW", "alts": ["0"], "explain": "Unit 3." },
+            { "id": "q_ie_id25", "type": "ident", "q": "Digital input device that provides a signal when pressed.", "answer": "Push Button", "alts": ["pushbutton", "button"], "explain": "Unit 3." },
+            { "id": "q_ie_id26", "type": "ident", "q": "Digital output device that emits light.", "answer": "LED", "alts": ["Light Emitting Diode"], "explain": "Unit 3." },
+
+            { "id": "q_ie_id27", "type": "ident", "q": "An electrical device with two states: open or closed.", "answer": "Switch", "alts": ["switches"], "explain": "Unit 4." },
+            { "id": "q_ie_id28", "type": "ident", "q": "Switch type abbreviated as SPST.", "answer": "Single Pole Single Throw", "alts": ["SPST"], "explain": "Unit 4." },
+            { "id": "q_ie_id29", "type": "ident", "q": "Switch type abbreviated as SPDT.", "answer": "Single Pole Double Throw", "alts": ["SPDT"], "explain": "Unit 4." },
+            { "id": "q_ie_id30", "type": "ident", "q": "Switch type abbreviated as DPST.", "answer": "Double Pole Single Throw", "alts": ["DPST"], "explain": "Unit 4." },
+            { "id": "q_ie_id31", "type": "ident", "q": "Switch type abbreviated as DPDT.", "answer": "Double Pole Double Throw", "alts": ["DPDT"], "explain": "Unit 4." },
+            { "id": "q_ie_id32", "type": "ident", "q": "A simple switch pressed with a finger to momentarily close a circuit.", "answer": "Push Button", "alts": ["pushbutton", "button"], "explain": "Unit 4." },
+
+            { "id": "q_ie_id33", "type": "ident", "q": "Three-terminal resistor with a sliding contact that forms an adjustable voltage divider.", "answer": "Potentiometer", "alts": ["pot", "variable resistor"], "explain": "Unit 5." },
+            { "id": "q_ie_id34", "type": "ident", "q": "The sliding contact that moves along the resistive element.", "answer": "Wiper", "alts": ["wiper pin", "signal pin"], "explain": "Unit 5." },
+            { "id": "q_ie_id35", "type": "ident", "q": "Most common type of potentiometer.", "answer": "Rotary", "alts": ["rotary potentiometer"], "explain": "Unit 5." },
+            { "id": "q_ie_id36", "type": "ident", "q": "Type of potentiometer that uses a slider instead of a knob.", "answer": "Linear", "alts": ["linear potentiometer", "slider"], "explain": "Unit 5." },
+            { "id": "q_ie_id37", "type": "ident", "q": "Function used to read the analog voltage from the wiper on the ESP32.", "answer": "analogRead", "alts": ["analogRead()"], "explain": "Unit 5." },
+
+            { "id": "q_ie_id38", "type": "ident", "q": "Component whose resistance changes based on the amount of light falling on its surface.", "answer": "LDR", "alts": ["Light Dependent Resistor", "Photoresistor", "Photocell", "Light Sensor"], "explain": "Unit 6." },
+            { "id": "q_ie_id39", "type": "ident", "q": "The resistance of an LDR increases when this happens.", "answer": "Darkness", "alts": ["Less light", "Dark", "Night"], "explain": "Unit 6." },
+            { "id": "q_ie_id40", "type": "ident", "q": "The resistance of an LDR decreases when this happens.", "answer": "Bright Light", "alts": ["More light", "Bright", "Light"], "explain": "Unit 6." },
+            { "id": "q_ie_id41", "type": "ident", "q": "Function used to read the analog value from an LDR.", "answer": "analogRead", "alts": ["analogRead()"], "explain": "Unit 6." },
+
+            { "id": "q_ie_id42", "type": "ident", "q": "Two-wire serial protocol used by I2C LCDs.", "answer": "I2C", "alts": ["IIC", "I²C", "Inter-Integrated Circuit"], "explain": "Unit 7." },
+            { "id": "q_ie_id43", "type": "ident", "q": "Serial Data Line.", "answer": "SDA", "alts": ["Serial Data"], "explain": "Unit 7." },
+            { "id": "q_ie_id44", "type": "ident", "q": "Serial Clock Line.", "answer": "SCL", "alts": ["Serial Clock"], "explain": "Unit 7." },
+            { "id": "q_ie_id45", "type": "ident", "q": "Library used to simplify LCD I2C programming on Arduino/ESP32.", "answer": "LiquidCrystal_I2C", "alts": ["LiquidCrystal I2C", "LiquidCrystal"], "explain": "Unit 7." },
+
+            { "id": "q_ie_id46", "type": "ident", "q": "Sensor that measures distance using high-frequency sound waves.", "answer": "Ultrasonic Sensor", "alts": ["Ultrasonic", "HC-SR04"], "explain": "Unit 8." },
+            { "id": "q_ie_id47", "type": "ident", "q": "Pin that sends the ultrasonic pulse.", "answer": "TRIG", "alts": ["Trigger", "Trigger Pin"], "explain": "Unit 8." },
+            { "id": "q_ie_id48", "type": "ident", "q": "Pin that receives the reflected ultrasonic pulse.", "answer": "ECHO", "alts": ["Echo", "Echo Pin"], "explain": "Unit 8." },
+            { "id": "q_ie_id49", "type": "ident", "q": "Common ultrasonic sensor module used in ESP32 projects.", "answer": "HC-SR04", "alts": ["HC SR04"], "explain": "Unit 8." },
+            { "id": "q_ie_id50", "type": "ident", "q": "The frequency used by the HC-SR04 ultrasonic sensor.", "answer": "40 kHz", "alts": ["40kHz", "40 KHz"], "explain": "Unit 8." },
+
+            { "id": "q_ie_id51", "type": "ident", "q": "Motor designed to provide precise control of position, speed, and movement.", "answer": "Servo Motor", "alts": ["Servo"], "explain": "Unit 9." },
+            { "id": "q_ie_id52", "type": "ident", "q": "Component in a servo that provides feedback on position.", "answer": "Potentiometer", "alts": ["pot"], "explain": "Unit 9." },
+            { "id": "q_ie_id53", "type": "ident", "q": "Component in a servo that reduces speed and increases torque.", "answer": "Gearbox", "alts": ["gears"], "explain": "Unit 9." },
+            { "id": "q_ie_id54", "type": "ident", "q": "Signal type used to control a servo motor.", "answer": "PWM", "alts": ["Pulse Width Modulation"], "explain": "Unit 9." },
+            { "id": "q_ie_id55", "type": "ident", "q": "Type of servo that can rotate continuously in either direction.", "answer": "Continuous Rotation Servo", "alts": ["Continuous Servo"], "explain": "Unit 9." },
+
+            { "id": "q_ie_id56", "type": "ident", "q": "Electronic display device that shows decimal numerals using 8 LEDs.", "answer": "7-Segment Display", "alts": ["Seven-Segment Display", "SSD", "7 segment display"], "explain": "Unit 10." },
+            { "id": "q_ie_id57", "type": "ident", "q": "Two-letter abbreviation for the decimal point on a 7-segment display.", "answer": "DP", "alts": ["Decimal Point"], "explain": "Unit 10." },
+            { "id": "q_ie_id58", "type": "ident", "q": "Type of display where all cathodes of the segments are connected together.", "answer": "Common Cathode", "alts": ["CC"], "explain": "Unit 10." },
+            { "id": "q_ie_id59", "type": "ident", "q": "Type of display where all anodes of the segments are connected together.", "answer": "Common Anode", "alts": ["CA"], "explain": "Unit 10." }
+          ]
+        },
+        {
+          "id": "s_units_1_10_enum",
+          "type": "enum",
+          "title": "Enumeration",
+          "questions": [
+            { "id": "q_ie_enum1", "type": "enum", "q": "Name the 4 basic parts of an electric circuit.", "answers": ["Power Source", "Conductors", "Load", "Switch"], "ordered": false, "explain": "Unit 1." },
+            { "id": "q_ie_enum2", "type": "enum", "q": "List the 3 types of jumper wire ends available.", "answers": ["Male-to-Male", "Male-to-Female", "Female-to-Female"], "ordered": false, "explain": "Unit 1." },
+            { "id": "q_ie_enum3", "type": "enum", "q": "What are the 2 types of resistors based on adjustability?", "answers": ["Fixed Resistor", "Variable Resistor"], "ordered": false, "explain": "Unit 1." },
+            { "id": "q_ie_enum4", "type": "enum", "q": "List the 4 bands on a color-coded resistor in order (left to right).", "answers": ["Digit 1", "Digit 2", "Multiplier", "Tolerance"], "ordered": true, "explain": "Unit 1." },
+
+            { "id": "q_ie_enum5", "type": "enum", "q": "List the 4 key elements of an IoT system.", "answers": ["Sensors", "Connectivity", "Data Processing", "User Interface"], "ordered": true, "explain": "Unit 2." },
+            { "id": "q_ie_enum6", "type": "enum", "q": "Name 3 wireless technologies commonly used for IoT connectivity.", "answers": ["Wi-Fi", "Bluetooth", "Cellular"], "ordered": false, "explain": "Unit 2." },
+            { "id": "q_ie_enum7", "type": "enum", "q": "What are the 3 main sections of the Arduino IDE?", "answers": ["Menu Bar", "Toolbar", "Status Bar"], "ordered": false, "explain": "Unit 2." },
+
+            { "id": "q_ie_enum8", "type": "enum", "q": "List 3 common digital INPUT devices.", "answers": ["Push Button", "Switch", "PIR Motion Sensor"], "ordered": false, "explain": "Unit 3." },
+            { "id": "q_ie_enum9", "type": "enum", "q": "List 3 common digital OUTPUT devices.", "answers": ["LED", "Buzzer", "Relay Module"], "ordered": false, "explain": "Unit 3." },
+            { "id": "q_ie_enum10", "type": "enum", "q": "Name the 3 important ESP32 GPIO functions covered in Unit 3.", "answers": ["pinMode", "digitalRead", "digitalWrite"], "ordered": false, "explain": "Unit 3." },
+
+            { "id": "q_ie_enum11", "type": "enum", "q": "Name the 4 common types of switches.", "answers": ["SPST", "SPDT", "DPST", "DPDT"], "ordered": false, "explain": "Unit 4." },
+            { "id": "q_ie_enum12", "type": "enum", "q": "What are the 2 states of a switch?", "answers": ["ON", "OFF"], "ordered": false, "explain": "Unit 4." },
+
+            { "id": "q_ie_enum13", "type": "enum", "q": "Name the 3 terminals of a potentiometer.", "answers": ["VCC", "GND", "Wiper"], "ordered": false, "explain": "Unit 5." },
+            { "id": "q_ie_enum14", "type": "enum", "q": "List 3 common applications of a potentiometer.", "answers": ["Volume control", "LED brightness control", "Motor speed control"], "ordered": false, "explain": "Unit 5." },
+
+            { "id": "q_ie_enum15", "type": "enum", "q": "Name 3 alternate names for an LDR.", "answers": ["Photoresistor", "Photocell", "Light Sensor"], "ordered": false, "explain": "Unit 6." },
+
+            { "id": "q_ie_enum16", "type": "enum", "q": "List 3 advantages of using an LCD I2C over a regular LCD.", "answers": ["Fewer Wires", "More GPIO Pins Available", "Easier Setup"], "ordered": false, "explain": "Unit 7." },
+            { "id": "q_ie_enum17", "type": "enum", "q": "List 3 applications of LCD I2C.", "answers": ["Home Weather Station", "Digital Clocks", "Remote Control Panel"], "ordered": false, "explain": "Unit 7." },
+
+            { "id": "q_ie_enum18", "type": "enum", "q": "Name the 4 pins of the HC-SR04 ultrasonic sensor.", "answers": ["VCC", "TRIG", "ECHO", "GND"], "ordered": false, "explain": "Unit 8." },
+            { "id": "q_ie_enum19", "type": "enum", "q": "List 3 advantages of ultrasonic sensors.", "answers": ["Accurate Distance Measurement", "Non-Contact Sensing", "Affordable"], "ordered": false, "explain": "Unit 8." },
+            { "id": "q_ie_enum20", "type": "enum", "q": "List 3 disadvantages of ultrasonic sensors.", "answers": ["Affected by Soft Materials", "Limited Detection Angle", "Interference"], "ordered": false, "explain": "Unit 8." },
+            { "id": "q_ie_enum21", "type": "enum", "q": "List 3 applications of ultrasonic sensors.", "answers": ["Water Level Monitoring", "Parking Assist Systems", "Automatic Door Systems"], "ordered": false, "explain": "Unit 8." },
+
+            { "id": "q_ie_enum22", "type": "enum", "q": "List the 4 main components of a micro servo motor.", "answers": ["Gearbox", "Potentiometer", "DC Motor", "Controller"], "ordered": false, "explain": "Unit 9." },
+            { "id": "q_ie_enum23", "type": "enum", "q": "Name the 3 wires of a servo motor and their colors.", "answers": ["Brown GND", "Red VCC", "Orange PWM"], "ordered": false, "explain": "Unit 9." },
+            { "id": "q_ie_enum24", "type": "enum", "q": "List 3 applications of servo motors.", "answers": ["Robotics", "RC Vehicles", "Model Aircraft"], "ordered": false, "explain": "Unit 9." },
+            { "id": "q_ie_enum25", "type": "enum", "q": "What are the 3 types of servo motors?", "answers": ["Standard Servo", "Micro Servo", "Continuous Rotation Servo"], "ordered": false, "explain": "Unit 9." },
+
+            { "id": "q_ie_enum26", "type": "enum", "q": "Name the 2 types of 7-segment displays based on polarity.", "answers": ["Common Cathode", "Common Anode"], "ordered": false, "explain": "Unit 10." },
+            { "id": "q_ie_enum27", "type": "enum", "q": "List 3 applications of a 7-segment display.", "answers": ["Digital clocks", "Basic calculators", "Scoreboards"], "ordered": false, "explain": "Unit 10." },
+            { "id": "q_ie_enum28", "type": "enum", "q": "List the 8 LEDs in a 7-segment display (name them).", "answers": ["a", "b", "c", "d", "e", "f", "g", "DP"], "ordered": false, "explain": "Unit 10." }
+          ]
         }
+      ]
+    }
       ]
     }
   ]
