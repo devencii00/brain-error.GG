@@ -267,7 +267,8 @@ textarea.code-input { font-family: var(--mono); font-size: .88rem; min-height: 1
 .choices { display: grid; gap: 10px; }
 .choice { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; background: var(--surface); transition: border-color .12s, background .12s; }
 .choice:hover { border-color: var(--accent); }
-.choice input { display: none; }
+.choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.choice:has(input:focus-visible) { outline: 3px solid color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 2px; }
 .choice .key { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; font-family: var(--mono); font-weight: 700; font-size: .82rem; background: var(--surface-2); flex: none; }
 .choice:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
 .choice:has(input:checked) .key { background: var(--accent); color: #fff; }

@@ -1352,20 +1352,50 @@ document.addEventListener('drop', (e) => {
 });
 document.addEventListener('dragend', () => { if (dragEl) dragEl.classList.remove('drag'); $$('.arr-item.over').forEach((x) => x.classList.remove('over')); dragEl = null; });
 
+function focusCurrentAnswer() {
+  const P = S.play;
+  if (!P || P.phase !== 'answer') return;
+  const sec = P.quiz.sections[P.idx];
+  const q = sec && sec.questions[P.qIdx[sec.id]];
+  if (!q) return;
+  const id = CSS.escape(q.id);
+  const selector = q.type === 'mcq'
+    ? `input[name="q_${id}"]`
+    : q.type === 'ident' || q.type === 'enum' || (q.type === 'code' && q.mode === 'blank')
+      ? `input[data-qid="${id}"]`
+      : q.type === 'code' && q.mode === 'bug'
+        ? `input[data-fix="${id}"]`
+        : q.type === 'code' && q.mode === 'syntax'
+          ? `textarea[data-qid="${id}"]`
+          : `[data-arr="${id}"] button`;
+  const field = $(`${selector}`, $('#part'));
+  if (field) field.focus();
+}
+
 /* keyboard shortcuts */
 document.addEventListener('keydown', (e) => {
-  if (!S.play || S.play.phase !== 'answer') return;
-  if (e.target.matches('input,textarea,select')) return;
-  if (e.key >= '1' && e.key <= '4') {
+  if (!S.play || !isActivePlayRoute(S.play)) return;
+  if (e.key === 'Tab' && !e.shiftKey && !$('#part')?.contains(e.target)) {
+    e.preventDefault();
+    focusCurrentAnswer();
+    return;
+  }
+  if (S.play.phase === 'answer' && e.key >= '1' && e.key <= '4') {
     const sec = S.play.quiz.sections[S.play.idx];
-    const q = sec.questions[0];
+    const q = sec.questions[S.play.qIdx[sec.id]];
     if (q && q.type === 'mcq') {
       const c = $(`input[name="q_${CSS.escape(q.id)}"][value="${+e.key - 1}"]`);
       if (c) c.checked = true;
     }
   }
-  if (e.key === 'Enter' && !e.shiftKey) {
-    const btn = $('[data-act="submit-part"]'); if (btn) btn.click();
+  if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    const action = S.play.phase === 'reveal'
+      ? $('[data-act="next-part"]')
+      : $('[data-act="q-next"]') || $('[data-act="submit-part"]');
+    if (action) {
+      e.preventDefault();
+      action.click();
+    }
   }
 });
 
