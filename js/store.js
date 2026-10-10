@@ -8,6 +8,7 @@ const DB = (() => {
     session: 'be_session',
     quizzes: 'be_quizzes',
     attempts: 'be_attempts',
+    playProgress: 'be_play_progress_',
     seeded: 'be_seeded_v2',
     guest: 'be_guest_id',
     adminCode: 'be_admin_code',
@@ -165,6 +166,24 @@ const DB = (() => {
     attempts: (userId) => read(K.attempts, []).filter((a) => a.userId === userId).sort((a, b) => b.at - a.at),
     addAttempt(a) { const list = read(K.attempts, []); list.push({ ...a, id: uid('a'), at: Date.now() }); write(K.attempts, list); },
     clearAttempts(userId) { write(K.attempts, read(K.attempts, []).filter((a) => a.userId !== userId)); },
+    savePlayProgress(userId, quizId, state, ttl) {
+      const key = K.playProgress + encodeURIComponent(userId) + '_' + encodeURIComponent(quizId);
+      if (!write(key, { expiresAt: Date.now() + ttl, state })) throw new Error('Could not save quiz progress (browser storage is full or blocked).');
+    },
+    loadPlayProgress(userId, quizId) {
+      const key = K.playProgress + encodeURIComponent(userId) + '_' + encodeURIComponent(quizId);
+      const saved = read(key, null);
+      if (!saved) return null;
+      if (!saved.expiresAt || saved.expiresAt <= Date.now() || !saved.state) {
+        try { localStorage.removeItem(key); } catch {}
+        return null;
+      }
+      return saved.state;
+    },
+    clearPlayProgress(userId, quizId) {
+      const key = K.playProgress + encodeURIComponent(userId) + '_' + encodeURIComponent(quizId);
+      try { localStorage.removeItem(key); } catch {}
+    },
 
     /* ---------- import / export ---------- */
     exportData: () => ({ app: 'BrainError', version: 2, exportedAt: new Date().toISOString(), quizzes: read(K.quizzes, []) }),

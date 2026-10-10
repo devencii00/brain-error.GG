@@ -14,6 +14,7 @@ const clone = (o) => JSON.parse(JSON.stringify(o));
 const BLANK_RE = /\[\[(.+?)\]\]/g;
 const LANGS = ['javascript', 'typescript', 'python', 'java', 'c', 'cpp', 'csharp', 'php', 'html', 'css', 'sql', 'go', 'rust', 'ruby', 'kotlin', 'swift', 'bash'];
 const EXT_LANG = { js: 'javascript', mjs: 'javascript', ts: 'typescript', py: 'python', java: 'java', c: 'c', cpp: 'cpp', cc: 'cpp', cs: 'csharp', php: 'php', html: 'html', css: 'css', sql: 'sql', go: 'go', rs: 'rust', rb: 'ruby', kt: 'kotlin', swift: 'swift', sh: 'bash' };
+const PLAY_PROGRESS_TTL = 24 * 60 * 60 * 1000;
 const TYPE = {
   mcq: { label: 'Multiple choice', short: 'MCQ', icon: 'check', blurb: 'Pick the correct choice' },
   ident: { label: 'Identification', short: 'ID', icon: 'search', blurb: 'Type the exact term' },
@@ -202,13 +203,16 @@ function shell(inner, active = '') {
     ? `<a href="#/manage" class="${active === 'manage' ? 'active' : ''}">Manage quizzes</a>`
     : `<a href="#/dashboard" class="${active === 'dashboard' ? 'active' : ''}">Quizzes</a><a href="#/history" class="${active === 'history' ? 'active' : ''}">My scores</a>`;
   app.innerHTML = `
-      <header class="nav"><div class="container nav-in">
-      ${logo}<nav class="nav-links" aria-label="Main">${links}</nav><span class="spacer"></span>
+       <header class="nav"><div class="container nav-in">
+      ${logo}
+      <button class="btn icon-btn ghost nav-burger" data-act="nav-toggle" aria-label="Menu">☰</button>
+      <nav class="nav-links" aria-label="Main">${links}</nav>
+      <span class="spacer"></span>
       ${soundBtn()}
       ${themeBtn()}
-      ${u ? `<div class="chip-user"><span class="avatar">${esc(u.name[0] || '?').toUpperCase()}</span><span class="nm">${esc(u.name)}<small>${u.role === 'admin' ? 'Admin' : u.guest ? 'Guest' : 'Student'}</small></span>
-        <button class="btn icon-btn sm ghost" data-act="logout" aria-label="Log out" title="Log out">${ic('logout')}</button></div>` : ''}
-    </div></header>
+      ${u ? `<div class="chip-user">...</div>` : ''}
+    </div>
+    <div class="mobile-menu" id="mobile-menu" hidden>${links}</div></header>
     <main class="container page">${inner}</main>`;
 }
 
@@ -480,6 +484,9 @@ function startModal(id, preview = false) {
         });
         S.play.timers = timers;
         S.play.timerOn = useTimer;
+        S.play.shuffleQuestions = $('#o-shq').checked;
+        S.play.shuffleChoices = $('#o-shc').checked;
+        if (!preview) DB.clearPlayProgress(DB.session().id, id);
         go('/play/' + id);
       },
     }],
@@ -519,6 +526,8 @@ function newPlay(quiz, o) {
     preview: !!o.preview,
     timerOn,
     timers,
+    shuffleQuestions: !!o.shuffleQ,
+    shuffleChoices: !!o.shuffleC,
     timeLeft: null,       // seconds remaining
     timerHandle: null,    // setInterval handle
     answers: {},
@@ -526,6 +535,31 @@ function newPlay(quiz, o) {
     shuffles: {},
     revealed: {},
   };
+}
+function resumeSavedPlay(id) {
+  const user = DB.session();
+  if (!user) return false;
+  const saved = DB.loadPlayProgress(user.id, id);
+  if (!saved || !saved.quiz || saved.quiz.id !== id || !Array.isArray(saved.quiz.sections) ||
+      !Number.isInteger(saved.idx) || saved.idx < 0 || saved.idx >= saved.quiz.sections.length ||
+      !['answer', 'reveal'].includes(saved.phase)) return false;
+  const play = clone(saved);
+  play.timerHandle = null;
+  play.timerOn = !!play.timerOn;
+  play.shuffleQuestions = !!play.shuffleQuestions;
+  play.shuffleChoices = !!play.shuffleChoices;
+  play.answers = play.answers || {};
+  play.graded = play.graded || {};
+  play.qIdx = play.qIdx || {};
+  play.shuffles = play.shuffles || {};
+  play.revealed = play.revealed || {};
+  const sec = play.quiz.sections[play.idx];
+  if (!sec || !Array.isArray(sec.questions) || !sec.questions.length) return false;
+  if (!Number.isInteger(play.qIdx[sec.id]) || play.qIdx[sec.id] < 0 || play.qIdx[sec.id] >= sec.questions.length) {
+    play.qIdx[sec.id] = 0;
+  }
+  S.play = play;
+  return true;
 }
 
 /* ---------- timer helpers ---------- */
@@ -539,13 +573,14 @@ function isActivePlayRoute(play = S.play) {
   const match = location.hash.slice(1).match(/^\/play\/(.+)$/);
   return !!play && play.phase !== 'done' && !!match && decodeURIComponent(match[1]) === play.quiz.id;
 }
-function startQuestionTimer() {
+function startQuestionTimer(reset = false) {
   const P = S.play;
   if (!P || !P.timerOn || P.phase !== 'answer' || !isActivePlayRoute(P)) return;
+  if (P.timerHandle !== null) return;
   clearPlayTimer(P);
   const sec = P.quiz.sections[P.idx];
   const seconds = P.timers[sec.type] || 10;
-  P.timeLeft = seconds;
+  if (reset || P.timeLeft === null || P.timeLeft <= 0) P.timeLeft = seconds;
   paintTimer();
   P.timerHandle = setInterval(() => {
     if (S.play !== P || !P.timerOn || P.phase !== 'answer' || !isActivePlayRoute(P)) {
@@ -565,7 +600,7 @@ function startQuestionTimer() {
         // time to end the section
         if (P.reveal) {
           collectSection(secNow);
-          P.phase = 'reveal'; P.revealed[secNow.id] = true;
+          P.phase = 'reveal'; P.revealed[secNow.id] = true; P.timeLeft = null;
           playView(P.quiz.id); window.scrollTo(0, 0);
         } else {
           collectSection(secNow);
@@ -574,12 +609,48 @@ function startQuestionTimer() {
       } else {
         collectCurrentQuestion(secNow);
         P.qIdx[secNow.id]++;
+        P.timeLeft = null;
         playView(P.quiz.id);
       }
     } else {
       paintTimer();
+      persistPlayProgress(P);
     }
   }, 1000);
+}
+function persistPlayProgress(play = S.play) {
+  if (!play || play.preview || play.phase === 'done') return;
+  const user = DB.session();
+  if (!user) return;
+  if (play.phase === 'answer' && S.play === play) {
+    const sec = play.quiz.sections[play.idx];
+    if (sec && sec.questions[play.qIdx[sec.id]]) collectCurrentQuestion(sec);
+  }
+  const state = {
+    quiz: play.quiz,
+    idx: play.idx,
+    qIdx: play.qIdx,
+    phase: play.phase,
+    reveal: play.reveal,
+    preview: play.preview,
+    timerOn: play.timerOn,
+    timers: play.timers,
+    shuffleQuestions: play.shuffleQuestions,
+    shuffleChoices: play.shuffleChoices,
+    timeLeft: play.timeLeft,
+    answers: play.answers,
+    graded: play.graded,
+    shuffles: play.shuffles,
+    revealed: play.revealed,
+  };
+  try {
+    DB.savePlayProgress(user.id, play.quiz.id, state, PLAY_PROGRESS_TTL);
+  } catch (error) {
+    if (!play._storageErrorShown) {
+      play._storageErrorShown = true;
+      toast(error.message, 'err');
+    }
+  }
 }
 function paintTimer() {
   const el = document.getElementById('timer-display');
@@ -598,7 +669,10 @@ function collectCurrentQuestion(sec) {
   else if (q.mode === 'blank') a.v = $$(`input[data-qid="${id}"]`, root).map((i) => i.value);
   else if (q.mode === 'bug') { const s = $(`[data-bug="${id}"] .code-line.sel`, root); a.line = s ? +s.dataset.line : (P.answers[q.id]?.line ?? null); a.fix = ($(`input[data-fix="${id}"]`, root) || {}).value || P.answers[q.id]?.fix || ''; }
   else if (q.mode === 'syntax') a.v = ($(`textarea[data-qid="${id}"]`, root) || {}).value || P.answers[q.id]?.v || '';
-  else a.v = $$(`[data-arr="${id}"] .arr-item`, root).map((e) => +e.dataset.i);
+  else {
+    a.v = $$(`[data-arr="${id}"] .arr-item`, root).map((e) => +e.dataset.i);
+    P.shuffles[q.id] = a.v;
+  }
   P.answers[q.id] = a;
 }
 function goToQuestion(delta) {
@@ -669,6 +743,7 @@ function playView(id) {
       <div class="row">${timerBadge}
       <label class="pill-toggle" title="Show answers after each part"><input type="checkbox" id="reveal-toggle" ${P.reveal ? 'checked' : ''} /> Reveal after each part</label>
       <label class="pill-toggle" title="Enable per-question timer"><input type="checkbox" id="timer-toggle" ${P.timerOn ? 'checked' : ''} /> Timer</label>
+      ${!P.preview ? `<button class="btn sm" data-act="restart-play">${ic('refresh')} Start again</button>` : ''}
       <button class="btn sm ghost danger" data-act="quit">${ic('x')} Quit</button></div></div>
     <div class="stepper">${stepper}</div>
     <div class="bar"><i style="width:${progress}%"></i></div>
@@ -677,23 +752,25 @@ function playView(id) {
 
   if (P.phase === 'answer' && P.timerOn) startQuestionTimer();
   else clearPlayTimer();
+  persistPlayProgress(P);
 }
 
 /* ----- question inputs ----- */
 function questionHTML(q, n) {
   const head = `<div class="q-no">${TYPE[q.type].short} · Q${n}</div>`;
+  const answer = S.play.answers[q.id] || {};
   let body = '';
   if (q.type === 'mcq') {
-    body = `<div class="q-text">${esc(q.q)}</div><div class="choices">${q.choices.map((c, i) => `<label class="choice"><input type="radio" name="q_${esc(q.id)}" value="${i}" /><span class="key">${String.fromCharCode(65 + i)}</span><span>${esc(c)}</span></label>`).join('')}</div>`;
+    body = `<div class="q-text">${esc(q.q)}</div><div class="choices">${q.choices.map((c, i) => `<label class="choice"><input type="radio" name="q_${esc(q.id)}" value="${i}" ${answer.v === i ? 'checked' : ''} /><span class="key">${String.fromCharCode(65 + i)}</span><span>${esc(c)}</span></label>`).join('')}</div>`;
   } else if (q.type === 'ident') {
-    body = `<div class="q-text">${esc(q.q)}</div><input class="input" data-qid="${esc(q.id)}" placeholder="Type your answer" autocomplete="off" />`;
+    body = `<div class="q-text">${esc(q.q)}</div><input class="input" data-qid="${esc(q.id)}" value="${esc(answer.v || '')}" placeholder="Type your answer" autocomplete="off" />`;
   } else if (q.type === 'enum') {
-    body = `<div class="q-text">${esc(q.q)}</div><p class="hint">${q.answers.length} answers · ${q.ordered ? 'in order' : 'any order'}</p><div class="enum-list">${q.answers.map((_, i) => `<div class="r"><span class="n">${i + 1}.</span><input class="input sm" data-qid="${esc(q.id)}" data-i="${i}" autocomplete="off" /></div>`).join('')}</div>`;
+    body = `<div class="q-text">${esc(q.q)}</div><p class="hint">${q.answers.length} answers · ${q.ordered ? 'in order' : 'any order'}</p><div class="enum-list">${q.answers.map((_, i) => `<div class="r"><span class="n">${i + 1}.</span><input class="input sm" data-qid="${esc(q.id)}" data-i="${i}" value="${esc(answer.v?.[i] || '')}" autocomplete="off" /></div>`).join('')}</div>`;
   } else {
     body = `<div class="q-text">${esc(q.title || 'Code challenge')}</div><p class="muted" style="margin-top:-6px">${esc(q.prompt || '')} <span class="badge">${esc(q.language)}</span></p>`;
-    if (q.mode === 'blank') body += `<div class="code-block">${codeBlankHTML(q, null)}</div>`;
-    else if (q.mode === 'bug') body += bugHTML(q, null) + `<div class="field"><label>Corrected line</label><input class="input mono" data-fix="${esc(q.id)}" placeholder="Type the fixed line" autocomplete="off" /></div>`;
-    else if (q.mode === 'syntax') body += `<div class="code-block">${String(q.code).split('\n').map((l, i) => `<div class="code-line"><span class="no">${i + 1}</span><span class="tx">${esc(l) || ' '}</span></div>`).join('')}</div><div class="field"><label>Corrected code</label><textarea class="input code-input" data-qid="${esc(q.id)}" data-kind="syntax" spellcheck="false" placeholder="Paste the corrected code…"></textarea></div>`;
+    if (q.mode === 'blank') body += `<div class="code-block">${codeBlankHTML(q, null, answer)}</div>`;
+    else if (q.mode === 'bug') body += bugHTML(q, null, answer) + `<div class="field"><label>Corrected line</label><input class="input mono" data-fix="${esc(q.id)}" value="${esc(answer.fix || '')}" placeholder="Type the fixed line" autocomplete="off" /></div>`;
+    else if (q.mode === 'syntax') body += `<div class="code-block">${String(q.code).split('\n').map((l, i) => `<div class="code-line"><span class="no">${i + 1}</span><span class="tx">${esc(l) || ' '}</span></div>`).join('')}</div><div class="field"><label>Corrected code</label><textarea class="input code-input" data-qid="${esc(q.id)}" data-kind="syntax" spellcheck="false" placeholder="Paste the corrected code…">${esc(answer.v || '')}</textarea></div>`;
     else body += arrangeHTML(q, null);
   }
   return `<article class="card q-card" data-q="${esc(q.id)}">${head}${body}</article>`;
@@ -705,7 +782,7 @@ function codeBlankHTML(q, g, a) {
     while ((m = re.exec(line))) {
       html += esc(line.slice(last, m.index)); last = m.index + m[0].length;
       const i = bi++;
-      if (!g) html += `<input class="blank" data-qid="${esc(q.id)}" data-b="${i}" style="width:${Math.max(6, m[1].length + 3)}ch" spellcheck="false" autocomplete="off" aria-label="Blank ${i + 1}" />`;
+      if (!g) html += `<input class="blank" data-qid="${esc(q.id)}" data-b="${i}" value="${esc(a && a.v && a.v[i] || '')}" style="width:${Math.max(6, m[1].length + 3)}ch" spellcheck="false" autocomplete="off" aria-label="Blank ${i + 1}" />`;
       else { const ok = g.flags[i]; const given = (a && a.v && a.v[i]) || ''; html += `<span class="blank ${ok ? 'ok' : 'no'}">${esc(given || '|')}</span>${ok ? '' : `<span class="ans-chip">${esc(m[1])}</span>`}`; }
     }
     html += esc(line.slice(last));
@@ -716,7 +793,7 @@ function bugHTML(q, g, a) {
   const lines = String(q.code).split('\n');
   return `<div class="code-block" data-bug="${esc(q.id)}">${lines.map((l, i) => {
     const n = i + 1; let cls = '';
-    if (!g) cls = l.trim() ? 'pick' : '';
+    if (!g) cls = l.trim() ? `pick ${a && a.line === n ? 'sel' : ''}` : '';
     else if (n === q.bugLine) cls = 'ok-line'; else if (a && a.line === n) cls = 'bad-line';
     return `<div class="code-line ${cls}" ${!g && l.trim() ? `data-line="${n}"` : ''}><span class="no">${n}</span><span class="tx">${esc(l) || ' '}</span></div>`;
   }).join('')}</div>${g ? '' : '<p class="hint" style="margin-top:-6px">Click the line that contains the bug.</p>'}`;
@@ -784,6 +861,7 @@ function advance() {
   if (P.idx >= P.quiz.sections.length - 1) return finishGame();
   P.idx++;
   P.phase = 'answer';
+  P.timeLeft = null;
   // reset the question index for the new section
   const nextSec = P.quiz.sections[P.idx];
   P.qIdx[nextSec.id] = 0;
@@ -797,6 +875,7 @@ function finishGame() {
   const sections = P.quiz.sections.map((s) => ({ title: s.title, type: s.type, ...P.graded[s.id] }));
   P.total = { got: sections.reduce((t, s) => t + s.got, 0), max: sections.reduce((t, s) => t + s.max, 0) };
   P.phase = 'done';
+  if (!P.preview) DB.clearPlayProgress(u.id, P.quiz.id);
   if (!P.preview) DB.addAttempt({ userId: u.id, quizId: P.quiz.id, quizTitle: P.quiz.title, got: P.total.got, max: P.total.max, sections });
   resultsView(); window.scrollTo(0, 0);
 }
@@ -1046,6 +1125,10 @@ function addParsed(parsed) {
 function render() {
   const raw = location.hash.slice(1) || '/'; const [path, qs] = raw.split('?'); const q = new URLSearchParams(qs || '');
   const u = DB.session(); let m;
+  if (S.play && S.play.phase !== 'done' && !isActivePlayRoute(S.play)) {
+    persistPlayProgress(S.play);
+    clearPlayTimer(S.play);
+  }
   if (!isActivePlayRoute()) clearPlayTimer();
   closeModal(); window.scrollTo(0, 0);
   if (path === '/') return u ? go(homeFor(u)) : landing();
@@ -1054,7 +1137,11 @@ function render() {
   const admin = u.role === 'admin';
   if (path === '/dashboard') return admin ? go('/manage') : dashboard(u);
   if (path === '/history') return admin ? go('/manage') : historyView(u);
-  if ((m = path.match(/^\/play\/(.+)$/))) return playView(decodeURIComponent(m[1]));
+  if ((m = path.match(/^\/play\/(.+)$/))) {
+    const id = decodeURIComponent(m[1]);
+    if ((!S.play || S.play.quiz.id !== id) && !resumeSavedPlay(id)) return go(homeFor(u));
+    return playView(id);
+  }
   if (path === '/manage') return admin ? manageView() : go('/dashboard');
   if ((m = path.match(/^\/manage\/edit\/(.+)$/))) return admin ? editorView(decodeURIComponent(m[1])) : go('/dashboard');
   go(homeFor(u));
@@ -1070,9 +1157,15 @@ const actions = {
     document.documentElement.setAttribute('data-theme', t); try { localStorage.setItem('be_theme', t); } catch {}
     $$('[data-act="theme"]').forEach((b) => (b.innerHTML = ic(t === 'dark' ? 'sun' : 'moon')));
   },
-   sound() {
-    const pop = document.getElementById('sound-pop');
-    if (pop) pop.hidden = !pop.hidden;
+  sound() {
+    if (typeof Sound === 'undefined') return;
+    const on = Sound.toggle();
+    $$('[data-act="sound"]').forEach((b) => (b.textContent = on ? '🔊' : '🔇'));
+    toast(on ? 'Sound on' : 'Sound off', on ? 'ok' : 'info');
+  },
+  'nav-toggle'() {
+    const m = document.getElementById('mobile-menu');
+    if (m) m.hidden = !m.hidden;
   },
   logout() {
   confirmBox(
@@ -1092,7 +1185,13 @@ const actions = {
     });
   },
 
-  'start-open'(t) { startModal(t.dataset.id); },
+  'start-open'(t) {
+    if (resumeSavedPlay(t.dataset.id)) {
+      go('/play/' + t.dataset.id);
+      return toast('Resumed your quiz where you left off.', 'ok');
+    }
+    startModal(t.dataset.id);
+  },
   preview(t) { startModal(t.dataset.id, true); },
   'select-all-sections'() { $$('[data-section-option]', $('#modal-root')).forEach((input) => { input.checked = true; }); },
   'clear-sections'() { $$('[data-section-option]', $('#modal-root')).forEach((input) => { input.checked = false; }); },
@@ -1110,8 +1209,8 @@ const actions = {
   collectCurrentQuestion(sec);
   if (P.qIdx[sec.id] < sec.questions.length - 1) {
     P.qIdx[sec.id]++;
+    P.timeLeft = null;
     playView(P.quiz.id);
-    startQuestionTimer();
   } else {
     // it's the last question | trigger submit
     actions['submit-part']();
@@ -1123,19 +1222,48 @@ const actions = {
   collectCurrentQuestion(sec);
   if (P.qIdx[sec.id] > 0) {
     P.qIdx[sec.id]--;
+    P.timeLeft = null;
     playView(P.quiz.id);
-    startQuestionTimer();
   }
 },
   'next-part'() { advance(); },
  quit() {
   const P = S.play; const back = DB.session().role === 'admin' ? '/manage' : '/dashboard';
   if (!P || P.phase === 'done') { clearPlayTimer(); S.play = null; return go(back); }
-  confirmBox('Your progress in this game will be lost.', () => { clearPlayTimer(); S.play = null; go(back); }, 'Quit game');
+  confirmBox('Your progress will be saved so you can continue this quiz later.', () => { persistPlayProgress(P); clearPlayTimer(P); S.play = null; go(back); }, 'Quit game');
 },
+  'restart-play'() {
+    const P = S.play;
+    if (!P || P.preview) return;
+    clearPlayTimer(P);
+    persistPlayProgress(P);
+    openModal({
+      title: 'Start this quiz again?',
+      body: '<p class="muted">Your current answers will be cleared and this same selection of parts will start from the beginning.</p>',
+      actions: [
+        { label: 'Keep current run', cls: 'ghost', onClick: () => { startQuestionTimer(); } },
+        { label: 'Start again', cls: 'primary', onClick: () => {
+          const user = DB.session();
+          DB.clearPlayProgress(user.id, P.quiz.id);
+          const reset = newPlay(P.quiz, {
+            sectionIndexes: P.quiz.sections.map((_, index) => index),
+            reveal: P.reveal,
+            shuffleQ: P.shuffleQuestions,
+            shuffleC: P.shuffleChoices,
+            timers: P.timerOn,
+            preview: false,
+          });
+          reset.timers = clone(P.timers);
+          S.play = reset;
+          playView(reset.quiz.id);
+          window.scrollTo(0, 0);
+        } },
+      ],
+    });
+  },
   retry() { const q = DB.quiz(S.play.quiz.id); if (q) startModal(q.id, S.play.preview); },
-  'arr-up'(t) { const it = t.closest('.arr-item'); if (it.previousElementSibling) it.previousElementSibling.before(it); },
-  'arr-down'(t) { const it = t.closest('.arr-item'); if (it.nextElementSibling) it.nextElementSibling.after(it); },
+  'arr-up'(t) { const it = t.closest('.arr-item'); if (it.previousElementSibling) it.previousElementSibling.before(it); persistPlayProgress(); },
+  'arr-down'(t) { const it = t.closest('.arr-item'); if (it.nextElementSibling) it.nextElementSibling.after(it); persistPlayProgress(); },
 
   'new-quiz'() { go('/manage/edit/new'); },
   dup(t) { DB.duplicateQuiz(t.dataset.id); toast('Quiz duplicated.', 'ok'); manageView(); },
@@ -1269,6 +1397,7 @@ document.addEventListener('click', (e) => {
     if (Sound) Sound.play('click');
     $$('.code-line.sel', line.parentNode).forEach((x) => x.classList.remove('sel'));
     line.classList.add('sel');
+    persistPlayProgress();
   }
 });
 
@@ -1326,7 +1455,7 @@ document.addEventListener('change', (e) => {
   if (t.id === 'reveal-toggle' && S.play) S.play.reveal = t.checked;
   if (t.id === 'timer-toggle' && S.play) {
     S.play.timerOn = t.checked;
-    if (t.checked) startQuestionTimer(); else clearPlayTimer();
+    if (t.checked) startQuestionTimer(true); else clearPlayTimer();
   }
   if (t.matches && t.matches('input[data-upload]')) {
     const f = t.files[0]; if (!f) return;
@@ -1340,6 +1469,10 @@ document.addEventListener('change', (e) => {
     r.onload = () => { try { const n = DB.importData(JSON.parse(r.result)); toast(`Imported ${n} quiz(zes).`, 'ok'); manageView(); } catch (x) { toast(x.message || 'Could not read that file.', 'err'); } };
     r.readAsText(f);
   }
+  if (t.closest && t.closest('#part')) persistPlayProgress();
+});
+document.addEventListener('input', (e) => {
+  if (e.target.closest && e.target.closest('#part')) persistPlayProgress();
 });
 
 /* drag & drop for arrange */
@@ -1350,7 +1483,12 @@ document.addEventListener('drop', (e) => {
   const it = e.target.closest && e.target.closest('.arr-item'); if (!dragEl || !it || it === dragEl || it.parentNode !== dragEl.parentNode) return; e.preventDefault();
   const kids = [...it.parentNode.children]; if (kids.indexOf(dragEl) < kids.indexOf(it)) it.after(dragEl); else it.before(dragEl);
 });
-document.addEventListener('dragend', () => { if (dragEl) dragEl.classList.remove('drag'); $$('.arr-item.over').forEach((x) => x.classList.remove('over')); dragEl = null; });
+document.addEventListener('dragend', () => {
+  if (dragEl) dragEl.classList.remove('drag');
+  $$('.arr-item.over').forEach((x) => x.classList.remove('over'));
+  dragEl = null;
+  persistPlayProgress();
+});
 
 function focusCurrentAnswer() {
   const P = S.play;
@@ -1385,7 +1523,7 @@ document.addEventListener('keydown', (e) => {
     const q = sec.questions[S.play.qIdx[sec.id]];
     if (q && q.type === 'mcq') {
       const c = $(`input[name="q_${CSS.escape(q.id)}"][value="${+e.key - 1}"]`);
-      if (c) c.checked = true;
+      if (c) { c.checked = true; persistPlayProgress(); }
     }
   }
   if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
@@ -1399,7 +1537,19 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-window.addEventListener('beforeunload', (e) => { if (S.dirty) { e.preventDefault(); e.returnValue = ''; } });
+window.addEventListener('beforeunload', (e) => {
+  if (S.play && isActivePlayRoute(S.play)) {
+    persistPlayProgress(S.play);
+    clearPlayTimer(S.play);
+  }
+  if (S.dirty) { e.preventDefault(); e.returnValue = ''; }
+});
+window.addEventListener('pagehide', () => {
+  if (S.play && isActivePlayRoute(S.play)) {
+    persistPlayProgress(S.play);
+    clearPlayTimer(S.play);
+  }
+});
 
 /* ---------- boot ---------- */
 DB.init().then(render);
