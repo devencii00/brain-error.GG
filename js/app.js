@@ -199,6 +199,7 @@ const logo = `<a class="logo" href="#/"><span class="logo-mark">{!}</span>BrainE
 
 function shell(inner, active = '') {
   const u = DB.session();
+  const userInitials = u ? (String(u.name || 'User').trim().split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'U') : '';
   const links = !u ? '' : u.role === 'admin'
     ? `<a href="#/manage" class="${active === 'manage' ? 'active' : ''}">Manage quizzes</a>`
     : `<a href="#/dashboard" class="${active === 'dashboard' ? 'active' : ''}">Quizzes</a><a href="#/history" class="${active === 'history' ? 'active' : ''}">My scores</a>`;
@@ -210,7 +211,7 @@ function shell(inner, active = '') {
       <span class="spacer"></span>
       ${soundBtn()}
       ${themeBtn()}
-      ${u ? `<div class="chip-user">...</div>` : ''}
+      ${u ? `<div class="chip-user"><span class="avatar" aria-hidden="true">${esc(userInitials)}</span><span class="nm">${esc(u.name)}<small>${esc(u.guest ? 'Guest' : u.role)}</small></span><button class="btn icon-btn ghost" data-act="logout" aria-label="Log out" title="Log out">${ic('logout')}</button></div>` : ''}
     </div>
     <div class="mobile-menu" id="mobile-menu" hidden>${links}</div></header>
     <main class="container page">${inner}</main>`;
