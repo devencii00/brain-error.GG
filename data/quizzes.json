@@ -1172,9 +1172,12 @@
               "bugLine": null,
               "fix": "",
               "explain": "Each handler resets the other virtual pins to keep only one active."
-            }
+             }
           ]
-        },     {
+        }
+      ]
+    },
+    {
       "id": "quiz_units_1_10_ident_enum",
       "title": "Units 1–10 — Identification & Enumeration Review",
       "subject": "IoT",
@@ -1313,5 +1316,4 @@
     }
       ]
     }
-  ]
-}
+  

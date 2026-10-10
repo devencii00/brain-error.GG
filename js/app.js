@@ -64,14 +64,15 @@ function setPath(obj, path, val) {
 const normText = (s) => String(s ?? '').toLowerCase().replace(/[‘’]/g, "'").replace(/[.,;:!?"'`()]/g, '').replace(/\s+/g, ' ').trim();
 const blanksOf = (q) => [...String(q.code || '').matchAll(BLANK_RE)].map((m) => m[1]);
 const arrangeLines = (q) => String(q.code || '').split('\n').filter((l) => normalizeCode(l, q.language) !== '');
+const sectionQuestions = (section) => Array.isArray(section.questions) ? section.questions : [];
 
 function qMax(q) {
   if (q.type === 'enum') return q.answers.length;
   if (q.type === 'code') return q.mode === 'blank' ? blanksOf(q).length : q.mode === 'bug' ? 2 : q.mode === 'syntax' ? 1 : 1;
   return 1;
 }
-const quizMax = (quiz) => quiz.sections.reduce((t, s) => t + s.questions.reduce((u, q) => u + qMax(q), 0), 0);
-const quizCount = (quiz) => quiz.sections.reduce((t, s) => t + s.questions.length, 0);
+const quizMax = (quiz) => quiz.sections.reduce((t, s) => t + sectionQuestions(s).reduce((u, q) => u + qMax(q), 0), 0);
+const quizCount = (quiz) => quiz.sections.reduce((t, s) => t + sectionQuestions(s).length, 0);
 
 /* Levenshtein distance for fuzzy matching */
 function levenshtein(a, b) {
@@ -313,7 +314,7 @@ function authView(mode) {
    Student: dashboard + history
    ========================================================== */
 function chipsFor(quiz) {
-  return quiz.sections.filter((s) => s.questions.length).map((s) => `<span class="badge ${s.type === 'code' ? 'accent' : ''}">${ic(TYPE[s.type].icon)} ${TYPE[s.type].short} · ${s.questions.length}</span>`).join('');
+  return quiz.sections.filter((s) => sectionQuestions(s).length).map((s) => `<span class="badge ${s.type === 'code' ? 'accent' : ''}">${ic(TYPE[s.type].icon)} ${TYPE[s.type].short} · ${sectionQuestions(s).length}</span>`).join('');
 }
 function dashboard(u) {
   const quizzes = DB.quizzes().filter((q) => quizCount(q) > 0);
@@ -428,9 +429,19 @@ function startModal(id, preview = false) {
   const quiz = DB.quiz(id); if (!quiz) return toast('Quiz not found.', 'err');
   const st = quiz.settings || {};
   const timers = st.timers || { mcq: 10, ident: 5, enum: 20, code: 60 };
+  const sections = quiz.sections.map((section, index) => ({ section, index })).filter(({ section }) => sectionQuestions(section).length);
+  if (!sections.length) return toast('This quiz has no questions to play.', 'err');
   openModal({
     title: `${preview ? 'Preview: ' : 'Start: '}${quiz.title}`,
-    body: `<p class="muted">${quizCount(quiz)} questions · ${quizMax(quiz)} points · ${quiz.sections.filter((s) => s.questions.length).length} parts</p>
+    body: `<p class="muted">${quizCount(quiz)} questions · ${quizMax(quiz)} points · ${sections.length} parts</p>
+      <div class="field section-picker-field">
+        <div class="row section-picker-head"><span class="lbl">Parts to include</span><span class="row"><button class="btn sm ghost" type="button" data-act="select-all-sections">All</button><button class="btn sm ghost" type="button" data-act="clear-sections">None</button></span></div>
+        <div class="section-picker">${sections.map(({ section, index }) => `<label class="section-option">
+          <input type="checkbox" data-section-option data-section-index="${index}" checked />
+          <span class="section-option-info"><b>${ic(TYPE[section.type].icon)} ${esc(section.title || TYPE[section.type].label)}</b><span>${TYPE[section.type].short} · ${section.questions.length} question${section.questions.length === 1 ? '' : 's'}</span></span>
+        </label>`).join('')}</div>
+        <span class="hint">Choose the parts for this attempt. Your quiz stays unchanged.</span>
+      </div>
       <label class="switch"><span class="t"><b>Reveal answers after each part</b><span>Off = all answers are shown at the very end</span></span><input type="checkbox" id="o-reveal" ${st.reveal !== false ? 'checked' : ''} /></label>
       <label class="switch"><span class="t"><b>Shuffle questions</b><span>Mix the order inside each part</span></span><input type="checkbox" id="o-shq" ${st.shuffleQuestions ? 'checked' : ''} /></label>
       <label class="switch"><span class="t"><b>Shuffle choices</b><span>Randomise multiple choice options</span></span><input type="checkbox" id="o-shc" ${st.shuffleChoices ? 'checked' : ''} /></label>
@@ -447,6 +458,11 @@ function startModal(id, preview = false) {
     actions: [{ label: 'Cancel', cls: 'ghost' }, {
       label: `${ic('play')} ${preview ? 'Preview' : 'Start game'}`, cls: 'primary',
       onClick: () => {
+        const sectionIndexes = $$('[data-section-option]:checked', $('#modal-root')).map((input) => Number(input.dataset.sectionIndex));
+        if (!sectionIndexes.length) {
+          toast('Choose at least one part to start.', 'err');
+          return false;
+        }
         const useTimer = $('#o-timer').checked;
         const timers = {
           mcq: +$('#t-mcq').value || 10,
@@ -455,6 +471,7 @@ function startModal(id, preview = false) {
           code: +$('#t-code').value || 60,
         };
         S.play = newPlay(quiz, {
+          sectionIndexes,
           reveal: $('#o-reveal').checked,
           shuffleQ: $('#o-shq').checked,
           shuffleC: $('#o-shc').checked,
@@ -477,7 +494,8 @@ function startModal(id, preview = false) {
 }
 function newPlay(quiz, o) {
   const q = clone(quiz);
-  q.sections = q.sections.filter((s) => s.questions.length);
+  const selectedSections = new Set(o.sectionIndexes);
+  q.sections = q.sections.filter((s, index) => selectedSections.has(index) && sectionQuestions(s).length);
   q.sections.forEach((s) => {
     if (o.shuffleQ) shuffle(s.questions);
     if (o.shuffleC) s.questions.forEach((x) => {
@@ -1069,6 +1087,8 @@ const actions = {
 
   'start-open'(t) { startModal(t.dataset.id); },
   preview(t) { startModal(t.dataset.id, true); },
+  'select-all-sections'() { $$('[data-section-option]', $('#modal-root')).forEach((input) => { input.checked = true; }); },
+  'clear-sections'() { $$('[data-section-option]', $('#modal-root')).forEach((input) => { input.checked = false; }); },
   'clear-history'() { confirmBox('This removes all your saved scores on this device.', () => { DB.clearAttempts(DB.session().id); render(); }, 'Clear'); },
   'print-results'() { window.print(); },
 

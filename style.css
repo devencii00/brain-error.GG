@@ -151,6 +151,16 @@ textarea.code-input { font-family: var(--mono); font-size: .88rem; min-height: 1
 .switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .15s; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
 .switch input:checked { background: var(--accent); }
 .switch input:checked::after { transform: translateX(20px); }
+.section-picker-field { margin: 8px 0 14px; }
+.section-picker-head { justify-content: space-between; }
+.section-picker-head .row { gap: 2px; }
+.section-picker { display: grid; gap: 8px; max-height: 220px; overflow-y: auto; padding: 2px; }
+.section-option { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); cursor: pointer; }
+.section-option:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.section-option input { width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
+.section-option-info { display: flex; flex-direction: column; line-height: 1.35; }
+.section-option-info .ic { margin-right: 4px; }
+.section-option-info > span { color: var(--muted); font-size: .82rem; }
 .tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--surface-2); border-radius: 14px; margin-bottom: 22px; }
 .tabs button { border: 0; background: transparent; padding: 10px; border-radius: 11px; font-weight: 600; color: var(--muted); }
 .tabs button.on { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
