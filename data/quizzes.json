@@ -6,7 +6,7 @@
     {
       "id": "quiz_unit1_electronics",
       "title": "Introduction to Electronic Components & Breadboarding",
-      "subject": "Electronics",
+      "subject": "IoT",
       "description": "Unit 1 reviewer — resistors, capacitors, breadboards, circuits, LEDs, and jumper wires.",
       "settings": {
         "reveal": true,
@@ -618,7 +618,7 @@
     {
       "id": "quiz_code_challenges_units_1_to_10",
       "title": "BrainError — Code Challenges (Units 1–10)",
-      "subject": "Programming",
+      "subject": "IoT",
       "description": "38 hands-on ESP32 code challenges: fill-in-the-blanks, find-the-bug, fix-the-syntax, and arrange-the-lines. Covers pins, buttons, LCD I2C, ultrasonic, servos, and 7-segment displays.",
       "settings": {
         "reveal": true,
@@ -702,7 +702,7 @@
     {
       "id": "quiz_core_activities",
       "title": "Core Activities — Hands-On Code Review",
-      "subject": "Programming",
+      "subject": "IoT",
       "description": "Review the actual ESP32 activity outputs: push buttons, potentiometers, LDR, ultrasonic, 7-segment, RGB colors, servo sweep, and Blynk IoT.",
       "settings": {
         "reveal": true,

@@ -529,23 +529,29 @@ function newPlay(quiz, o) {
 }
 
 /* ---------- timer helpers ---------- */
-function clearPlayTimer() {
-  const P = S.play;
-  if (P && P.timerHandle) {
-    clearInterval(P.timerHandle);
-    P.timerHandle = null;
+function clearPlayTimer(play = S.play) {
+  if (play && play.timerHandle !== null) {
+    clearInterval(play.timerHandle);
+    play.timerHandle = null;
   }
+}
+function isActivePlayRoute(play = S.play) {
+  const match = location.hash.slice(1).match(/^\/play\/(.+)$/);
+  return !!play && play.phase !== 'done' && !!match && decodeURIComponent(match[1]) === play.quiz.id;
 }
 function startQuestionTimer() {
   const P = S.play;
-  if (!P || !P.timerOn) return;
-  clearPlayTimer();
+  if (!P || !P.timerOn || P.phase !== 'answer' || !isActivePlayRoute(P)) return;
+  clearPlayTimer(P);
   const sec = P.quiz.sections[P.idx];
   const seconds = P.timers[sec.type] || 10;
   P.timeLeft = seconds;
   paintTimer();
   P.timerHandle = setInterval(() => {
-    if (!S.play) return clearPlayTimer();
+    if (S.play !== P || !P.timerOn || P.phase !== 'answer' || !isActivePlayRoute(P)) {
+      clearPlayTimer(P);
+      return;
+    }
     P.timeLeft--;
     // Tick sound in the last 5 seconds
     if (P.timeLeft > 0 && P.timeLeft <= 5 && typeof Sound !== 'undefined') Sound.play('tick');
@@ -1040,6 +1046,7 @@ function addParsed(parsed) {
 function render() {
   const raw = location.hash.slice(1) || '/'; const [path, qs] = raw.split('?'); const q = new URLSearchParams(qs || '');
   const u = DB.session(); let m;
+  if (!isActivePlayRoute()) clearPlayTimer();
   closeModal(); window.scrollTo(0, 0);
   if (path === '/') return u ? go(homeFor(u)) : landing();
   if (path === '/auth') return u ? go(homeFor(u)) : authView(q.get('mode') === 'register' ? 'register' : 'login');
